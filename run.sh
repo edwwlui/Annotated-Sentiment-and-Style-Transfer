@@ -47,6 +47,7 @@ main_dev_num=2000
 fi
 
 main_category=sentiment
+#positive/negative, humorous/romantic
 main_category_num=2
 #configure
 preprocess_tool_path=src/tool/
