@@ -66,13 +66,13 @@ if [ "$main_operation" = "train" ]; then
 
 	#preprocess train data
 
-  #python src/tool/filter_style_ngrams.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train. 2 $main_function:[label,orgin] sentiment.train.
+  	#python src/tool/filter_style_ngrams.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train. 2 $main_function:[label,orgin] sentiment.train.
 	echo ">> python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix"
 	python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix
 
 	if [ "$main_data" = "amazon" ]; then
-  #use bash instead of sh, otherwise error: bad for loop var
-  #i<2
+  	#use bash instead of sh, otherwise error: bad for loop var
+  	#i<2
 	for((i=0;i < $main_category_num; i++))
 	do
           #python src/tool/use_nltk_to_filter.py sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
@@ -90,29 +90,29 @@ if [ "$main_operation" = "train" ]; then
           #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.dev.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function:[label,orgin]} ${main_dict_num} ${main_dict_thre} sentiment.dev.${i:[1,2]}
           python ${preprocess_tool_path}preprocess_test.py ${orgin_dev_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${dev_file_prefix}${i}
 	done
-  #cat sentiment.train.*.data.${main_function:[label,orgin]} >> train.data.$(main_function)
+  	#cat sentiment.train.*.data.${main_function:[label,orgin]} >> train.data.$(main_function)
 	cat ${train_file_prefix}*.data.${main_function} >> $train_data_file
-  #cat sentiment.dev.*.data.${main_function:[label,orgin]} >> test.data.$(main_function)
+	#cat sentiment.dev.*.data.${main_function:[label,orgin]} >> test.data.$(main_function)
 	cat ${dev_file_prefix}*.data.${main_function} >> $test_data_file
 
-  #python src/tool/shuffle.py train.data.$(main_function)
-  python ${preprocess_tool_path}shuffle.py $train_data_file
-  #python src/tool/shuffle.py test.data.$(main_function)
+  	#python src/tool/shuffle.py train.data.$(main_function)
+  	python ${preprocess_tool_path}shuffle.py $train_data_file
+  	#python src/tool/shuffle.py test.data.$(main_function)
 	python ${preprocess_tool_path}shuffle.py $test_data_file
-  #cat test.data.$(main_function).shuffle >>train.data.$(main_function).shuffle
+  	#cat test.data.$(main_function).shuffle >>train.data.$(main_function).shuffle
 	cat ${test_data_file}.shuffle >>${train_data_file}.shuffle
-  #cp train.data.$(main_function).shuffle $train.data.$(main_function)
+  	#cp train.data.$(main_function).shuffle $train.data.$(main_function)
 	cp ${train_data_file}.shuffle ${train_data_file}
-  #echo ">> python src/tool/create_dict.py $train.data.$(main_function) $zhi.dict.$main_function:[label,orgin]"
+  	#echo ">> python src/tool/create_dict.py $train.data.$(main_function) $zhi.dict.$main_function:[label,orgin]"
 	echo ">> python ${preprocess_tool_path}create_dict.py ${train_data_file} $dict_data_file"
 	python ${preprocess_tool_path}create_dict.py ${train_data_file} $dict_data_file
 
-  #line_num of train.data.$(main_function)
+  	#line_num of train.data.$(main_function)
 	line_num=$(wc -l < $train_data_file)
 	vt=$main_dev_num
 	echo ">> eval"
-  #BEGIN rule -> only execute once
-  #eval %.6f -> 6 decimal places
+  	#BEGIN rule -> only execute once
+  	#eval %.6f -> 6 decimal places
 	eval $(awk 'BEGIN{printf "train_num=%.6f",'$line_num'-'$vt'}')
 	test_num=$main_dev_num
 	vaild_num=0
@@ -121,7 +121,7 @@ if [ "$main_operation" = "train" ]; then
 	eval $(awk 'BEGIN{printf "test_rate=%.6f",'$test_num'/'$line_num'}')
 
 	#train process
-  #python src/main.py dir dialog_path $train.data.$(main_function) $zhi.dict.$main_function:[label,orgin] train_rate valid_rate test_rate algo_name method 64
+  	#python src/main.py dir dialog_path $train.data.$(main_function) $zhi.dict.$main_function:[label,orgin] train_rate valid_rate test_rate algo_name method 64
 	echo "here is the training >> python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
 	echo ">> training ends"
