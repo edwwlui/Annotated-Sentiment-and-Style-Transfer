@@ -155,7 +155,7 @@ elif [ "$main_operation" = "test" ]; then
 
 
 		#preprocess test data
-    #error: no file of run-bash
+    		
 		cp run-bash/* ./
 		line_num=$(wc -l < $train_data_file)
 		vt=$main_dev_num
@@ -166,31 +166,31 @@ elif [ "$main_operation" = "test" ]; then
 		eval $(awk 'BEGIN{printf "train_rate=%.6f",'$train_num'/'$line_num'}')
 		eval $(awk 'BEGIN{printf "vaild_rate=%.6f",'$vaild_num'/'$line_num'}')
 		eval $(awk 'BEGIN{printf "test_rate=%.6f",'$test_num'/'$line_num'}')
-		# for((i=0;i<$main_category_num;i++))
-		# do
-		#         echo ">> preprocess_test.py"
-		#         python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i:[1,2]} ${train_file_prefix}${i:[1,2]} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i:[1,2]}
-		#         echo ">> filter_template_test.py"
-		#         python ${preprocess_tool_path}filter_template_test.py ${test_file_prefix}${i:[1,2]} ${main_function}
-		#         echo ">> filter_template.py"
-		#         python ${preprocess_tool_path}filter_template.py ${train_file_prefix}${i:[1,2]} ${main_function}
-		# done
+		for((i=0;i<$main_category_num;i++))
+		do
+		         echo ">> preprocess_test.py"
+		         python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i:[1,2]} ${train_file_prefix}${i:[1,2]} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i:[1,2]}
+		         echo ">> filter_template_test.py"
+		         python ${preprocess_tool_path}filter_template_test.py ${test_file_prefix}${i:[1,2]} ${main_function}
+		         echo ">> filter_template.py"
+		         python ${preprocess_tool_path}filter_template.py ${train_file_prefix}${i:[1,2]} ${main_function}
+		done
 
 
 
-		# for((i=0;i<$main_category_num;i++))
-		# do
-		# 	echo ">> src/main.py"
-		# 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${test_file_prefix}${i:[1,2]}.template.${main_function} $batch_size
-		#     THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${train_file_prefix}${i:[1,2]}.template.${main_function} $batch_size
-		# done
+		 for((i=0;i<$main_category_num;i++))
+		 do
+		 	echo ">> src/main.py"
+		 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${test_file_prefix}${i:[1,2]}.template.${main_function} $batch_size
+		     THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${train_file_prefix}${i:[1,2]}.template.${main_function} $batch_size
+		 done
 
-		# for((i=0;i<$main_category_num;i++))
-		# do
-		# 	echo ">> find_nearst_neighbot_all.py"
-		# 	python ${preprocess_tool_path}find_nearst_neighbot_all.py $i $main_data ${main_function}
-		# 	python ${preprocess_tool_path}form_test_data.py ${test_file_prefix}${i:[1,2]}.template.${main_function}.emb.result
-		# done
+		 for((i=0;i<$main_category_num;i++))
+		 do
+		 	echo ">> find_nearst_neighbot_all.py"
+		 	python ${preprocess_tool_path}find_nearst_neighbot_all.py $i $main_data ${main_function}
+		 	python ${preprocess_tool_path}form_test_data.py ${test_file_prefix}${i:[1,2]}.template.${main_function}.emb.result
+		 done
 
 		echo ">> test preprocessed"
 	fi
