@@ -155,7 +155,7 @@ elif [ "$main_operation" = "test" ]; then
 
 
 		#preprocess test data
-    		
+    		#cp: cannot stat 'run-bash/*': No such file or directory
 		cp run-bash/* ./
 		line_num=$(wc -l < $train_data_file)
 		vt=$main_dev_num
