@@ -55,7 +55,7 @@ train_file_prefix=${main_category}.train.
 dev_file_prefix=${main_category}.dev.
 test_file_prefix=${main_category}.test.
 orgin_train_file_prefix=${data_path}${main_data}/$train_file_prefix
-orgin_dev_file_prefix=${data_path}${main_data}/$dev_file_prefix
+orgin_dev_file_prefix=${data_path}${main_data/$dev_file_prefix
 orgin_test_file_prefix=${data_path}${main_data}/$test_file_prefix
 train_data_file=train.data.${main_function}
 test_data_file=test.data.${main_function}
@@ -66,7 +66,7 @@ if [ "$main_operation" = "train" ]; then
 
 	#preprocess train data
 
-  #python src/tool/filter_style_ngrams.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train. 2 $main_function sentiment.train.
+  #python src/tool/filter_style_ngrams.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train. 2 $main_function:[label,orgin] sentiment.train.
 	echo ">> python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix"
 	python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix
 
@@ -75,24 +75,24 @@ if [ "$main_operation" = "train" ]; then
   #i<2
 	for((i=0;i < $main_category_num; i++))
 	do
-          #python src/tool/use_nltk_to_filter.py sentiment.train.${i:[1,2]}.tf_idf.$main_function
+          #python src/tool/use_nltk_to_filter.py sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
           python ${preprocess_tool_path}use_nltk_to_filter.py ${train_file_prefix}${i}.tf_idf.$main_function
-          #cp sentiment.train.${i:[1,2]}.tf_idf.${main_function}.filter sentiment.train.${i:[1,2]}.tf_idf.$main_function
+          #cp sentiment.train.${i:[1,2]}.tf_idf.${main_function:[label,orgin]}.filter sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
           cp ${train_file_prefix}${i}.tf_idf.${main_function}.filter ${train_file_prefix}${i}.tf_idf.$main_function
 	done
 	fi
 
 	for((i=0;i < $main_category_num; i++))
 	do
-          #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function} ${main_dict_num} ${main_dict_thre} sentiment.train.${i:[1,2]}
+          #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function:[label,orgin]} ${main_dict_num} ${main_dict_thre} sentiment.train.${i:[1,2]}
 	        echo ">> python ${preprocess_tool_path}preprocess_train.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i} ${main_function} ${main_dict_num} ${main_dict_thre} ${train_file_prefix}${i}"
 	        python ${preprocess_tool_path}preprocess_train.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i} ${main_function} ${main_dict_num} ${main_dict_thre} ${train_file_prefix}${i}
-          #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.dev.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function} ${main_dict_num} ${main_dict_thre} sentiment.dev.${i:[1,2]}
+          #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.dev.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function:[label,orgin]} ${main_dict_num} ${main_dict_thre} sentiment.dev.${i:[1,2]}
           python ${preprocess_tool_path}preprocess_test.py ${orgin_dev_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${dev_file_prefix}${i}
 	done
-  #cat sentiment.train.*.data.${main_function} >> train.data.$(main_function)
+  #cat sentiment.train.*.data.${main_function:[label,orgin]} >> train.data.$(main_function)
 	cat ${train_file_prefix}*.data.${main_function} >> $train_data_file
-  #cat sentiment.dev.*.data.${main_function} >> test.data.$(main_function)
+  #cat sentiment.dev.*.data.${main_function:[label,orgin]} >> test.data.$(main_function)
 	cat ${dev_file_prefix}*.data.${main_function} >> $test_data_file
 
   #python src/tool/shuffle.py train.data.$(main_function)
@@ -103,7 +103,7 @@ if [ "$main_operation" = "train" ]; then
 	cat ${test_data_file}.shuffle >>${train_data_file}.shuffle
   #cp train.data.$(main_function).shuffle $train.data.$(main_function)
 	cp ${train_data_file}.shuffle ${train_data_file}
-  #echo ">> python src/tool/create_dict.py $train.data.$(main_function) $zhi.dict.$main_function"
+  #echo ">> python src/tool/create_dict.py $train.data.$(main_function) $zhi.dict.$main_function:[label,orgin]"
 	echo ">> python ${preprocess_tool_path}create_dict.py ${train_data_file} $dict_data_file"
 	python ${preprocess_tool_path}create_dict.py ${train_data_file} $dict_data_file
 
@@ -121,7 +121,7 @@ if [ "$main_operation" = "train" ]; then
 	eval $(awk 'BEGIN{printf "test_rate=%.6f",'$test_num'/'$line_num'}')
 
 	#train process
-  #python src/main.py dir dialog_path $train.data.$(main_function) $zhi.dict.$main_function" train_rate valid_rate test_rate algo_name method 64
+  #python src/main.py dir dialog_path $train.data.$(main_function) $zhi.dict.$main_function:[label,orgin] train_rate valid_rate test_rate algo_name method 64
 	echo "here is the training >> python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
 	echo ">> training ends"
