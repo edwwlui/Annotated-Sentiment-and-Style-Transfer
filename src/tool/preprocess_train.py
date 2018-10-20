@@ -6,7 +6,7 @@ dict_num = string.atof(sys.argv[4])
 dict_thre = string.atof(sys.argv[5])
 
 
-def levenshteinDistance(s1, s2):
+def levenshteinDistance(s1, s2):  #edit dist
     if len(s1) > len(s2):
         s1, s2 = s2, s1
 
