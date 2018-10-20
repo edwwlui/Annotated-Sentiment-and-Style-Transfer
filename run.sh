@@ -86,7 +86,7 @@ if [ "$main_operation" = "train" ]; then
 	  #fw: sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin].filter
           python ${preprocess_tool_path}use_nltk_to_filter.py ${train_file_prefix}${i}.tf_idf.$main_function
           #cp sentiment.train.${i:[1,2]}.tf_idf.${main_function:[label,orgin]}.filter sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
-          #overwrite
+          #overwrite sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
 	  cp ${train_file_prefix}${i}.tf_idf.${main_function}.filter ${train_file_prefix}${i}.tf_idf.$main_function
 	done
 	fi
@@ -102,10 +102,10 @@ if [ "$main_operation" = "train" ]; then
 	  python ${preprocess_tool_path}preprocess_test.py ${orgin_dev_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${dev_file_prefix}${i}
 	done
   	#cat sentiment.train.*.data.${main_function:[label,orgin]} >> train.data.${main_function:[label,orgin]}
-	#fw
+	#append
 	cat ${train_file_prefix}*.data.${main_function} >> $train_data_file
 	#cat sentiment.dev.*.data.${main_function:[label,orgin]} >> test.data.${main_function:[label,orgin]}
-	#fw
+	#append
 	cat ${dev_file_prefix}*.data.${main_function} >> $test_data_file
 	
 	#shuffle and overwrite
@@ -116,11 +116,11 @@ if [ "$main_operation" = "train" ]; then
   	#python src/tool/shuffle.py test.data.${main_function:[label,orgin]}
 	#fw: test.data.${main_function:[label,orgin]}.shuffle
 	python ${preprocess_tool_path}shuffle.py $test_data_file
-  	#cat test.data.$(main_function).shuffle >>train.data.${main_function:[label,orgin]}.shuffle
-	#fw
+  	#cat test.data.${main_function:[label,orgin]}.shuffle >>train.data.${main_function:[label,orgin]}.shuffle
+	#append
 	cat ${test_data_file}.shuffle >>${train_data_file}.shuffle
-  	#cp train.data.$(main_function).shuffle $train.data.${main_function:[label,orgin]}
-	#overwrite
+  	#cp train.data.${main_function:[label,orgin]}.shuffle $train.data.${main_function:[label,orgin]}
+	#overwrite train.data.${main_function:[label,orgin]}
 	cp ${train_data_file}.shuffle ${train_data_file}
   	#python src/tool/create_dict.py $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin]
 	#fw: zhi.dict.$main_function:[label,orgin]
