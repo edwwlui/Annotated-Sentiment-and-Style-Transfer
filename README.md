@@ -48,6 +48,15 @@ Start reading from run.sh
     - append them and overwrite to the initial train.data.${main_function:\[label,orgin]}
    - create dict data file by putting in train.data.${main_function:\[label,orgin]}
      - #fw: zhi.dict.$main_function:\[label,orgin]
+     ```
+     .       0
+      the     1
+      1       2
+      and     3
+      i       4
+      ,       5
+
+     ```
   - train
     - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
     
