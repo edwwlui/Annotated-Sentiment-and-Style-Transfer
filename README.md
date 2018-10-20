@@ -5,7 +5,7 @@
 # Guide
 1. Start from run.sh
 
-Annotations
+Annotations:
 
 - Comment line: summary
   
