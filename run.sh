@@ -141,7 +141,7 @@ if [ "$main_operation" = "train" ]; then
 	eval $(awk 'BEGIN{printf "test_rate=%.6f",'$test_num'/'$line_num'}')
 
 	#train process
-  	#python src/main.py dir dialog_path $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name method 64
+  	#python src/main.py dir dialog_path train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name method:[train] 64
 	echo "here is the training >> python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
 	echo ">> training ends"
@@ -222,8 +222,10 @@ elif [ "$main_operation" = "test" ]; then
 		 for((i=0;i<$main_category_num;i++))
 		 do
 		 	echo ">> find_nearst_neighbot_all.py"
+			#python src/tool/find_nearst_neighbot_all.py ${i:[0,1]} ${main_data:[yelp,amazon,imagecaption]} $main_function:[label,orgin]
 		 	python ${preprocess_tool_path}find_nearst_neighbot_all.py $i $main_data ${main_function}
-		 	python ${preprocess_tool_path}form_test_data.py ${test_file_prefix}${i}.template.${main_function}.emb.result
+		 	#python src/tool/form_test_data.py sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result
+			python ${preprocess_tool_path}form_test_data.py ${test_file_prefix}${i}.template.${main_function}.emb.result
 		 done
 
 		echo ">> test preprocessed"
@@ -234,13 +236,16 @@ elif [ "$main_operation" = "test" ]; then
 	for((i=0;i<$main_category_num;i++))
 	do
 	echo ">> python src/main.py"
+	#python src/main.py dir dialog_path train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t sentiment.test.${i:[0,1]}.template.$main_function:[label,orgin].emb.result.filter 64
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_b_v_t ${test_file_prefix}${i}.template.${main_function}.emb.result.filter $batch_size
 	done
 	if [ "$main_function_orgin" = "RetrieveOnly" ]; then
 		echo ">> get_retrieval_result.py"
+		#python src/tool/get_retrieval_result.py
 		python ${preprocess_tool_path}get_retrieval_result.py
 		for((i=0;i<$main_category_num;i++))
 		do
+		#cp sentiment.test.${i:[0,1]}.retrieval sentiment.test.${i:[0,1]}.${main_function_orgin:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:[yelp,amazon,imagecaption]}
 		cp ${test_file_prefix}${i}.retrieval ${test_file_prefix}${i}.${main_function_orgin}.$main_data
 		done
 		exit
@@ -248,36 +253,44 @@ elif [ "$main_operation" = "test" ]; then
 	for((i=0;i<$main_category_num;i++))
 	do
 		echo ">> build_lm_data.py"
+		#python src/tool/build_lm_data.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]} sentiment.train.${i:[0,1]}
 		python ${preprocess_tool_path}build_lm_data.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i}
+		#python src/tool/shuffle.py sentiment.train.${i:[0,1]}.lm
 		python ${preprocess_tool_path}shuffle.py ${train_file_prefix}${i}.lm
+		#cp sentiment.train.${i:[0,1]}.lm.shuffle sentiment.train.${i:[0,1]}.lm
 		cp ${train_file_prefix}${i}.lm.shuffle ${train_file_prefix}${i}.lm
+		#python src/tool/create_dict.py $sentiment.train.${i:[0,1]}.lm $sentiment.train.${i:[0,1]}.lm.dict
 		python ${preprocess_tool_path}create_dict.py ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict
 	done
 	for((i=0;i<$main_category_num;i++))
 	do
 		vaild_num=$i
 		eval $(awk 'BEGIN{printf "vaild_rate=%.10f",'$vaild_num'/'$line_num'}')
+		#python src/main.py dir dialog_path sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name method:[train] 64
 		echo ">>THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm train $batch_size"
 		THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm train $batch_size
 	done
 	vaild_num=0
 	i=0
 	eval $(awk 'BEGIN{printf "vaild_rate=%.10f",'$vaild_num'/'$line_num'}')
+	#python src/main.py dir dialog_path sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t_v sentiment.test1.template.${main_function:[label,orgin]}.emb.result.filter.result 64
 	echo ">> THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}1.template.${main_function}.emb.result.filter.result $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}1.template.${main_function}.emb.result.filter.result $batch_size
 	vaild_num=1
 	i=1
 	eval $(awk 'BEGIN{printf "vaild_rate=%.10f",'$vaild_num'/'$line_num'}')
-
+	
+	#python src/main.py dir dialog_path sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t_v sentiment.test0.template.${main_function:[label,orgin]}.emb.result.filter.result 64
 	echo ">>THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}0.template.${main_function}.emb.result.filter.result $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}0.template.${main_function}.emb.result.filter.result $batch_size
 
 	for((i=0;i<$main_category_num;i++))
 	do
-
+	    #python src/tool/get_final_result.py sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result.filter.result.result ${i:[0,1]}
 	    echo ">>python ${preprocess_tool_path}get_final_result.py ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result.result ${i}"
 	    python ${preprocess_tool_path}get_final_result.py ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result.result ${i}
-		cp ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result.result.final_result ${test_file_prefix}${i}.${main_function_orgin}.$main_data
+	    #cp sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result.filter.result.result.final_result sentiment.test.${i:[0,1]}.${main_function_orgin:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:[yelp,amazon,imagecaption]}
+	    cp ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result.result.final_result ${test_file_prefix}${i}.${main_function_orgin}.$main_data
 
 	done
 
