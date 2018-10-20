@@ -12,9 +12,11 @@
     - DeleteAndRetrieve
     - DeleteOnly
   - data_name
-    - |yelp|amazon|imagecaption|
-      |---|---|---|
-      
+    - |yelp|dict_num|dict_threshold|file name:0|file name:1|
+      |---|---|---|---|---|
+      |yelp|7000|15|negative|positive|
+      |amazon|10000|5.5|negative|positive|
+      |imagecaption|3000|5|humorous|romantic|
     - yelp
       - dict_num: 7000
       - dict_threshold: 15
