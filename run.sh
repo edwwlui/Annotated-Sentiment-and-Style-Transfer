@@ -141,7 +141,7 @@ if [ "$main_operation" = "train" ]; then
 	eval $(awk 'BEGIN{printf "test_rate=%.6f",'$test_num'/'$line_num'}')
 
 	#train process
-  	#python src/main.py dir dialog_path $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] train_rate valid_rate test_rate algo_name method 64
+  	#python src/main.py dir dialog_path $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name method 64
 	echo "here is the training >> python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
 	echo ">> training ends"
@@ -197,7 +197,7 @@ elif [ "$main_operation" = "test" ]; then
 		do
 		         echo ">> preprocess_test.py"
 			 #python src/tool/preprocess_test.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]} sentiment.train.${i:[0,1]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.test.${i:[1,2]}
-			 #fw: sentiment.test.${i:[1,2]}.data.${main_function:[label,orgin]}
+			 #fw: sentiment.test.${i:[0,1]}.data.${main_function:[label,orgin]}
 		         #python src/tool/preprocess_test.py
 			 python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i}
 		         echo ">> filter_template_test.py"
@@ -213,8 +213,10 @@ elif [ "$main_operation" = "test" ]; then
 		 for((i=0;i<$main_category_num;i++))
 		 do
 		 	echo ">> src/main.py"
+			#python src/main.py dir dialog_path $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_emb  sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]} 64
 		 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${test_file_prefix}${i}.template.${main_function} $batch_size
-		     THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${train_file_prefix}${i}.template.${main_function} $batch_size
+		        #python src/main.py dir dialog_path $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_emb  sentiment.train.${i:[0,1]}.template.${main_function:[label,orgin]} 64
+			THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${train_file_prefix}${i}.template.${main_function} $batch_size
 		 done
 
 		 for((i=0;i<$main_category_num;i++))
