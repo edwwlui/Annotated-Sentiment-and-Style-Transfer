@@ -2,6 +2,15 @@
 1. It is from [[paper]](https://arxiv.org/pdf/1804.06437.pdf) Delete, Retrieve, Generate: A Simple Approach to Sentiment and Style Transfer.
 2. official [README.md](https://github.com/lijuncen/Sentiment-and-Style-Transfer)
 
+# Notes for annotation
+Start reading from run.sh
+
+- Comment line: summary
+  
+- A:\[b,c] means elements b,c in set A
+  
+- fw: file write
+
 # High-Level Summary
 
 - Part 0: input arguments
@@ -41,12 +50,5 @@
     - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
     
 
-# Notes for annotation
-Start reading from run.sh
 
-- Comment line: summary
-  
-- A:\[b,c] means elements b,c in set A
-  
-- fw: file write
 
