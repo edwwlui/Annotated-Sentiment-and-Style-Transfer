@@ -4,4 +4,5 @@
 
 # Guide
 1. start from run.sh
+2. for detail implementation, trace the python file run 
 
