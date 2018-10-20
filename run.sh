@@ -151,22 +151,29 @@ elif [ "$main_operation" = "test" ]; then
 	echo ">> start test"
 	if true; then
 		if [ "$main_function" = "TemplateBased" ]; then
+			#src/tool/filter_style_ngrams.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train. 2 $main_function:[label,orgin] sentiment.train.
 			python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix
 			for((i=0;i < $main_category_num; i++))
 			do
 				echo ">> prepare_templatebased_data.py"
+				#src/tool/prepare_templatebased_data.py sentiment.train.${i:[0,1]} data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]} sentiment.train.${i:[1,2]} ${main_dict_thre:[15,5.5,5]} ${main_dict_num:[7000,10000,3000]}
 				python ${preprocess_tool_path}prepare_templatebased_data.py ${train_file_prefix}$i ${orgin_train_file_prefix}$i ${train_file_prefix}$i $main_dict_thre $main_dict_num
+				#src/tool/prepare_templatebased_data.py sentiment.train.${i:[0,1]} data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]} sentiment.test.${i:[1,2]} ${main_dict_thre:[15,5.5,5]} ${main_dict_num:[7000,10000,3000]}
 				python ${preprocess_tool_path}prepare_templatebased_data.py ${train_file_prefix}$i ${orgin_test_file_prefix}$i ${test_file_prefix}$i $main_dict_thre $main_dict_num
 			done
 			mkdir sen1
 			mkdir sen0
 			echo ">> retrieve_mode_my_1.py"
+			#src/tool/retrieve_mode_my_1.py
 			python ${preprocess_tool_path}retrieve_mode_my_1.py
+			#src/tool/retrieve_mode_my_0.py
 			python ${preprocess_tool_path}retrieve_mode_my_0.py
 			for((i=0;i < $main_category_num; i++))
 			do
 				echo ">> build_templatebased.py"
+				#python src/tool/build_templatebased.py sentiment.test.${i:[0,1]}.template1.result data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]}
 				python ${preprocess_tool_path}build_templatebased.py ${test_file_prefix}${i}.template1.result ${orgin_test_file_prefix}${i}
+				#cp sentiment.test.${i:[0,1]}.template1.result.result sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
 				cp ${test_file_prefix}${i}.template1.result.result ${test_file_prefix}${i}.${main_function}.$main_data
 			done
 
@@ -189,11 +196,16 @@ elif [ "$main_operation" = "test" ]; then
 		for((i=0;i<$main_category_num;i++))
 		do
 		         echo ">> preprocess_test.py"
-		         python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i}
+			 #python src/tool/preprocess_test.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]} sentiment.train.${i:[0,1]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.test.${i:[1,2]}
+			 #fw: sentiment.test.${i:[1,2]}.data.${main_function:[label,orgin]}
+		         #python src/tool/preprocess_test.py
+			 python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i}
 		         echo ">> filter_template_test.py"
-		         python ${preprocess_tool_path}filter_template_test.py ${test_file_prefix}${i} ${main_function}
+		         #python src/tool/filter_template_test.py sentiment.test.${i:[0,1]} $main_function:[label,orgin]
+			 python ${preprocess_tool_path}filter_template_test.py ${test_file_prefix}${i} ${main_function}
 		         echo ">> filter_template.py"
-		         python ${preprocess_tool_path}filter_template.py ${train_file_prefix}${i} ${main_function}
+		         #python src/tool/filter_template.py sentiment.train.${i:[0,1]} $main_function:[label,orgin]
+			 python ${preprocess_tool_path}filter_template.py ${train_file_prefix}${i} ${main_function}
 		done
 
 
