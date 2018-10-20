@@ -43,7 +43,7 @@ for i in word_dict.keys():
     words = i.split(' ')
     words_dict.append(words)
 # print len(word_dict)
-f = open(sys.argv[1], 'r')
+f = open(sys.argv[1], 'r')  #data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[1,2]}
 fw = open(sys.argv[6] + '.data.' + operation, 'w')
 total_num = 0
 change_num = 0
