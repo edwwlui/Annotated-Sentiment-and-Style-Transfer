@@ -4,7 +4,7 @@
 
 # High-Level Summary
 
-- Part 1: configuration
+- Part 0: input arguments
   - process
     - train
     - test
@@ -24,6 +24,10 @@
       - dict_num: 3000
       - dict_threshold: 5
       - {0: humorous, 1: romantic}
+- Part 1: configure
+  - model_name -> $main_function
+    - if $main_function='DeleteOnly' -> $main_function='label'
+    - if $main_function='DeleteAndRetrieve' or 'RetrieveOnly' -> $main_function='orgin'
 - Part 2: train 
   - get tf-idf score from data #fw: sentiment.train.\[0,1].tf_idf.$main_function:\[label,orgin]
   - if data=amazon: use nltk to filter by tf-idf 
