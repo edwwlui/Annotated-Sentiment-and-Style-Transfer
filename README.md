@@ -21,7 +21,7 @@ Start reading from run.sh
     - DeleteAndRetrieve
     - DeleteOnly
   - data_name
-    - ||dict_num|dict_threshold|file name: 0|file name: 1|
+    ||dict_num|dict_threshold|file name: 0|file name: 1|
       |---|---|---|---|---|
       |yelp|7000|15|negative|positive|
       |amazon|10000|5.5|negative|positive|
