@@ -3,7 +3,7 @@
 2. official [README.md](https://github.com/lijuncen/Sentiment-and-Style-Transfer)
 
 # Guide
-1. Start from run.sh
+1. Start reading from run.sh
 
 Annotations:
 
