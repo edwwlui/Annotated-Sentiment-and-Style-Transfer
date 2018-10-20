@@ -36,12 +36,12 @@ def get_dict(sen_array):
                                         tmp_dict[tmp]=1
         return tmp_dict
 num=0
-for tag in name_array:
+for tag in name_array:  #data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.i:[0,1]
 	negtive_array=[]
 	positve_array=load_data(tag)
 	for i in name_array:
 		if tag!=i:
-			negtive_array+=load_data(i)
+			negtive_array+=load_data(i)  #negtive array loads opposite data
 	#fw=open(tag+'.train','w')
 	#neg_dict={}
 	#pos_dict={}
@@ -54,7 +54,7 @@ for tag in name_array:
         	else:
                 	tf_idf[i]=(pos_dict[i]+1.0)
 	tf_dif1=sorted(tf_idf.items(), lambda x, y: cmp(x[1], y[1]), reverse=True)
-	fw=open(result_prefix+str(num)+'.tf_idf'+'.'+sys.argv[3],'w')
+	fw=open(result_prefix+str(num)+'.tf_idf'+'.'+sys.argv[3],'w')  #sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
 	for i in tf_dif1:
         	fw.write(i[0]+'\t'+str(i[1])+'\n')
 	num+=1
