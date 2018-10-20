@@ -36,8 +36,8 @@ Start reading from run.sh
   - if data==amazon: use nltk to filter by tf-idf 
      - #overwrite: sentiment.train.${i:\[1,2]}.tf_idf.$main_function:\[label,orgin]
   - add data if pass threshold 
-    - #fw: sentiment.train.${i:\[1,2]}.data.operation
-    - #fw: sentiment.dev.${i:\[1,2]}.data.operation
+    - #fw: sentiment.train.${i:\[0,1]}.data.${main_function:[label,orgin]}
+    - #fw: sentiment.dev.${i:\[0,1]}.data.${main_function:[label,orgin]}
   - integrate all training and testing files into
     - train.data.${main_function:\[label,orgin]}
     - test.data.${main_function:\[label,orgin]}
