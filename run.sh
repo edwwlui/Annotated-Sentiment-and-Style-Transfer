@@ -82,23 +82,23 @@ if [ "$main_operation" = "train" ]; then
   	#i<2
 	for((i=0;i < $main_category_num; i++))
 	do
-          #python src/tool/use_nltk_to_filter.py sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
-	  #fw: sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin].filter
+          #python src/tool/use_nltk_to_filter.py sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
+	  #fw: sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin].filter
           python ${preprocess_tool_path}use_nltk_to_filter.py ${train_file_prefix}${i}.tf_idf.$main_function
-          #cp sentiment.train.${i:[1,2]}.tf_idf.${main_function:[label,orgin]}.filter sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
-          #overwrite sentiment.train.${i:[1,2]}.tf_idf.$main_function:[label,orgin]
+          #cp sentiment.train.${i:[0,1}.tf_idf.${main_function:[label,orgin]}.filter sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
+          #overwrite sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
 	  cp ${train_file_prefix}${i}.tf_idf.${main_function}.filter ${train_file_prefix}${i}.tf_idf.$main_function
 	done
 	fi
 
 	for((i=0;i < $main_category_num; i++))
 	do
-          #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.train.${i:[1,2]}
-	  #fw: sentiment.train.${i:[1,2]}.data.${main_function:[label,orgin]}
+          #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]} sentiment.train.${i:[0,1]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.train.${i:[0,1]}
+	  #fw: sentiment.train.${i:[0,1]}.data.${main_function:[label,orgin]}
 	  echo ">> python ${preprocess_tool_path}preprocess_train.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i} ${main_function} ${main_dict_num} ${main_dict_thre} ${train_file_prefix}${i}"
 	  python ${preprocess_tool_path}preprocess_train.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i} ${main_function} ${main_dict_num} ${main_dict_thre} ${train_file_prefix}${i}
-          #python src/tool/preprocess_test.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.dev.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.dev.${i:[1,2]}
-          #fw: sentiment.dev.${i:[1,2]}.data.${main_function:[label,orgin]}
+          #python src/tool/preprocess_test.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.dev.${i:[0,1]} sentiment.train.${i:[0,1]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.dev.${i:[0,1]}
+          #fw: sentiment.dev.${i:[0,1]}.data.${main_function:[label,orgin]}
 	  python ${preprocess_tool_path}preprocess_test.py ${orgin_dev_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${dev_file_prefix}${i}
 	done
   	#cat sentiment.train.*.data.${main_function:[label,orgin]} >> train.data.${main_function:[label,orgin]}
