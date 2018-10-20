@@ -1,5 +1,7 @@
 #!/bin/bash
+
 #---part 1---
+
 main_operation=$1
 main_function=$2
 main_data=$3
