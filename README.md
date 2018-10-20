@@ -7,7 +7,7 @@
 
 - Comment line: summary
   
-- a:\[b,c] means elements in the set
+- A:\[b,c] means elements b,c in set A
   
 - fw: file write
   
