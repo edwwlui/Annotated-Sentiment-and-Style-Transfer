@@ -41,7 +41,7 @@
     - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
     
 
-# Annotation
+# Notes for annotation
 Start reading from run.sh
 
 - Comment line: summary
