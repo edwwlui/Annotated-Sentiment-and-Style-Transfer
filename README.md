@@ -5,6 +5,8 @@
 # Guide
 1. Start from run.sh
 
+Annotations
+
 - Comment line: summary
   
 - A:\[b,c] means elements b,c in set A
