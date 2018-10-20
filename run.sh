@@ -94,11 +94,11 @@ if [ "$main_operation" = "train" ]; then
 	for((i=0;i < $main_category_num; i++))
 	do
           #python src/tool/preprocess_train.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.train.${i:[1,2]}
-	  #fw: sentiment.train.${i:[1,2]}.data.operation
+	  #fw: sentiment.train.${i:[1,2]}.data.${main_function:[label,orgin]}
 	  echo ">> python ${preprocess_tool_path}preprocess_train.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i} ${main_function} ${main_dict_num} ${main_dict_thre} ${train_file_prefix}${i}"
 	  python ${preprocess_tool_path}preprocess_train.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i} ${main_function} ${main_dict_num} ${main_dict_thre} ${train_file_prefix}${i}
           #python src/tool/preprocess_test.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.dev.${i:[1,2]} sentiment.train.${i:[1,2]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.dev.${i:[1,2]}
-          #fw: sentiment.dev.${i:[1,2]}.data.operation
+          #fw: sentiment.dev.${i:[1,2]}.data.${main_function:[label,orgin]}
 	  python ${preprocess_tool_path}preprocess_test.py ${orgin_dev_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${dev_file_prefix}${i}
 	done
   	#cat sentiment.train.*.data.${main_function:[label,orgin]} >> train.data.${main_function:[label,orgin]}
