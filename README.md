@@ -21,11 +21,11 @@ Start reading from run.sh
     - DeleteAndRetrieve
     - DeleteOnly
   - data_name
-    ||dict_num|dict_threshold|file name: 0|file name: 1|
-    |---|---|---|---|---|
-    |yelp|7000|15|negative|positive|
-    |amazon|10000|5.5|negative|positive|
-    |imagecaption|3000|5|humorous|romantic|
+      ||dict_num|dict_threshold|file name: 0|file name: 1|
+      |---|---|---|---|---|
+      |yelp|7000|15|negative|positive|
+      |amazon|10000|5.5|negative|positive|
+      |imagecaption|3000|5|humorous|romantic|
 - Part 1: configure
   - model_name -> $main_function
     - if $main_function=='DeleteOnly' then $main_function='label'
