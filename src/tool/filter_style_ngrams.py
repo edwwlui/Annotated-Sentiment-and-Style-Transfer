@@ -2,9 +2,9 @@ import sys
 import random
 import string
 
-data_prefix=sys.argv[1]
-result_prefix=sys.argv[4]
-data_file_num=string.atoi(sys.argv[2])
+data_prefix=sys.argv[1]  #data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.
+result_prefix=sys.argv[4]  #sentiment.train.
+data_file_num=string.atoi(sys.argv[2])  #2
 negtive_array=[]
 def load_data(file_name):
 	f=open(file_name,'r')
