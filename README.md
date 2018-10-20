@@ -12,27 +12,15 @@
     - DeleteAndRetrieve
     - DeleteOnly
   - data_name
-    - |yelp|dict_num|dict_threshold|file name:0|file name:1|
+    - ||dict_num|dict_threshold|file name: 0|file name: 1|
       |---|---|---|---|---|
       |yelp|7000|15|negative|positive|
       |amazon|10000|5.5|negative|positive|
       |imagecaption|3000|5|humorous|romantic|
-    - yelp
-      - dict_num: 7000
-      - dict_threshold: 15
-      - file name {0: negative, 1: postive}
-    - amazon
-      - dict_num: 10000
-      - dict_threshold: 5.5
-      - file name {0: negative, 1: postive}
-    - imagecaption
-      - dict_num: 3000
-      - dict_threshold: 5
-      - file name {0: humorous, 1: romantic}
 - Part 1: configure
   - model_name -> $main_function
-    - if $main_function='DeleteOnly' -> $main_function='label'
-    - if $main_function='DeleteAndRetrieve' or 'RetrieveOnly' -> $main_function='orgin'
+    - if $main_function='DeleteOnly' then $main_function='label'
+    - if $main_function='DeleteAndRetrieve' or 'RetrieveOnly' then $main_function='orgin'
 - Part 2: train 
   - get tf-idf score from data #fw: sentiment.train.\[0,1].tf_idf.$main_function:\[label,orgin]
   - if data=amazon: use nltk to filter by tf-idf 
