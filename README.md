@@ -4,5 +4,8 @@
 
 # Guide
 1. Start from run.sh
+  1.1. Comment line: summary
+  1.2. :\[ a , b ] means elements in the set
+  1.3. fw: file write
 2. For detail implementation, trace the python file run 
 
