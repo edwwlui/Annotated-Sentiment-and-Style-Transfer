@@ -31,8 +31,8 @@ for line in f:
         lines = line.strip().decode('utf-8').encode('gb18030').split('\t')
     except:
         continue
-    # print len(lines)
-    # print line
+    # print len(lines)  #2
+    # print line  #never    41.0
     if(len(lines) != 2):
         continue
     if(string.atof(lines[1]) > dict_thre and num < dict_num):
@@ -56,10 +56,10 @@ for line in f:
     style = ''
     style_dict = []
     for i in range(len(lines)):
-        for n in range(4, 0, -1):
+        for n in range(4, 0, -1):  #4-gram
             if(i + n > len(lines)):
                 continue
-            if(word_dict.get(' '.join(lines[i:i + n])) != None and (style_dict == [] or i + n - 1 > style_dict[-1])):
+            if(word_dict.get(' '.join(lines[i:i + n])) != None and (style_dict == [] or i + n - 1 > style_dict[-1])):  #in word_dict and (first in style_dict or larger than the largerst in style_dict)
                 style += ' '.join(lines[i:i + n]) + ' '
                 style_dict.append(i)
                 style_dict.append(i + n - 1)
@@ -87,7 +87,7 @@ for line in f:
     total_num += 1
     if style != '':
         if operation == 'label':
-            style = sys.argv[1][-1]
+            style = sys.argv[1][-1]  #0 or 1
             fw.write(content + '\t' + line.strip() + '\t' + style + '\t' + '1' + '\n')
             continue
         fw.write(content + '\t' + line.strip() + '\t' + style + '\t' + '1' + '\n')
