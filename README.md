@@ -31,7 +31,7 @@ Start reading from run.sh
     - if $main_function=='DeleteOnly' then $main_function='label'
     - if $main_function=='DeleteAndRetrieve' or 'RetrieveOnly' then $main_function='orgin'
 - Part 2: train 
-  - get tf-idf score from data #fw: sentiment.train.\[0,1].tf_idf.$main_function:\[label,orgin]
+  - get tf-idf score by n-gram from data #fw: sentiment.train.\[0,1].tf_idf.$main_function:\[label,orgin]
   - if data==amazon: use nltk to filter by tf-idf 
      - #overwrite: sentiment.train.${i:\[1,2]}.tf_idf.$main_function:\[label,orgin]
   - add if data pass threshold 
