@@ -50,12 +50,11 @@ Start reading from run.sh
      - #fw: zhi.dict.$main_function:\[label,orgin]
      ```
      .       0
-      the     1
-      1       2
-      and     3
-      i       4
-      ,       5
-
+     the     1
+     1       2
+     and     3
+     i       4
+     ,       5
      ```
   - train
     - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
