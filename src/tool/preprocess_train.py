@@ -1,7 +1,7 @@
 import sys
 import random
 import string
-operation = sys.argv[3]
+operation = sys.argv[3]  #${main_function:[label,orgin]}
 dict_num = string.atof(sys.argv[4])
 dict_thre = string.atof(sys.argv[5])
 
@@ -22,7 +22,7 @@ def levenshteinDistance(s1, s2):
     return distances[-1]
 
 
-f = open(sys.argv[2] + '.tf_idf' + '.' + operation, 'r')
+f = open(sys.argv[2] + '.tf_idf' + '.' + operation, 'r')  #sentiment.train.${i:[1,2]}.tf_idf.${main_function:[label,orgin]}
 words_dict = []
 word_dict = {}
 num = 0
@@ -44,7 +44,7 @@ for i in word_dict.keys():
     words_dict.append(words)
 # print len(word_dict)
 f = open(sys.argv[1], 'r')  #data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[1,2]}
-fw = open(sys.argv[6] + '.data.' + operation, 'w')
+fw = open(sys.argv[6] + '.data.' + operation, 'w')  #sentiment.train.${i:[1,2]}.data.${main_function:[label,orgin]}
 total_num = 0
 change_num = 0
 for line in f:
@@ -56,7 +56,7 @@ for line in f:
     style = ''
     style_dict = []
     for i in range(len(lines)):
-        for n in range(4, 0, -1):  #4-gram
+        for n in range(4, 0, -1):  #n-gram
             if(i + n > len(lines)):
                 continue
             if(word_dict.get(' '.join(lines[i:i + n])) != None and (style_dict == [] or i + n - 1 > style_dict[-1])):  #in word_dict and (first in style_dict or larger than the largerst in style_dict)
