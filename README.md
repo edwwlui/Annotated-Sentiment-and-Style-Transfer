@@ -15,15 +15,15 @@
     - yelp
       - dict_num: 7000
       - dict_threshold: 15
-      - {0: negative, 1: postive}
+      - file name {0: negative, 1: postive}
     - amazon
       - dict_num: 10000
       - dict_threshold: 5.5
-      - {0: negative, 1: postive}
+      - file name {0: negative, 1: postive}
     - imagecaption
       - dict_num: 3000
       - dict_threshold: 5
-      - {0: humorous, 1: romantic}
+      - file name {0: humorous, 1: romantic}
 - Part 1: configure
   - model_name -> $main_function
     - if $main_function='DeleteOnly' -> $main_function='label'
