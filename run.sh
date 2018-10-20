@@ -71,6 +71,7 @@ if [ "$main_operation" = "train" ]; then
 	#preprocess train data
 
   	#python src/tool/filter_style_ngrams.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train. 2 $main_function:[label,orgin] sentiment.train.
+	#fw: sentiment.train.|str(num)|.tf_idf.$main_function:[label,orgin]
 	echo ">> python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix"
 	python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix
 
