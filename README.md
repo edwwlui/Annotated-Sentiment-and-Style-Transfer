@@ -21,13 +21,13 @@
     - append
     
     #cat test.data.${main_function:\[label,orgin]}.shuffle >>train.data.${main_function:\[label,orgin]}.shuffle
-    -overwrite initial train.data.${main_function:\[label,orgin]}
+    - overwrite initial train.data.${main_function:\[label,orgin]}
     
     #cp train.data.${main_function:\[label,orgin]}.shuffle $train.data.${main_function:\[label,orgin]}
-   -make dict data file by train.data.${main_function:\[label,orgin]}
-    -#fw: zhi.dict.$main_function:\[label,orgin]
-  -train
-    -python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
+   - make dict data file by train.data.${main_function:\[label,orgin]}
+     - #fw: zhi.dict.$main_function:\[label,orgin]
+  - train
+    - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
     
 
 # Annotation
