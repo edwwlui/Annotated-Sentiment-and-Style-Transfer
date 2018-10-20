@@ -4,8 +4,27 @@
 
 # High-Level Summary
 
-- part 1 configuration
-- part 2 train 
+- Part 1: configuration
+  - process
+    - train
+    - test
+  - model_name
+    - DeleteAndRetrieve
+    - DeleteOnly
+  - data_name
+    - yelp
+      - dict_num: 7000
+      - dict_threshold: 15
+      - {0: negative, 1: postive}
+    - amazon
+      - dict_num: 10000
+      - dict_threshold: 5.5
+      - {0: negative, 1: postive}
+    - imagecaption
+      - dict_num: 3000
+      - dict_threshold: 5
+      - {0: humorous, 1: romantic}
+- Part 2: train 
   - get tf-idf score from data #fw: sentiment.train.\[0,1].tf_idf.$main_function:\[label,orgin]
   - if data=amazon: use nltk to filter by tf-idf 
      - #overwrite: sentiment.train.${i:\[1,2]}.tf_idf.$main_function:\[label,orgin]
