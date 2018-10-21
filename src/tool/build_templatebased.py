@@ -42,7 +42,7 @@ f=open(sys.argv[2],'r')
 for line in f:
 	line=line.strip()
 	if(rule_dict.get(line)!=None):
-		fw.write(line+'\t'+rule_dict.get(line)+'\t'+sys.argv[2][-1]+'\n')
+		fw.write(line+'\t'+rule_dict.get(line)+'\t'+sys.argv[2][-1]+'\n') # + '0' or '1'
 	else:
-		fw.write(line+'\t'+line+'\t'+sys.argv[2][-1]+'\n')
+		fw.write(line+'\t'+line+'\t'+sys.argv[2][-1]+'\n') # + '0' or '1'
 fw.close()
