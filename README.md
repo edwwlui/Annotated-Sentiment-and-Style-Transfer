@@ -67,23 +67,23 @@ Start reading from run.sh
 - Part 3: test
   -
 - final output
-    - sentiment.test.<label:[0,1]>.<method:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:[yelp.amazon,captions]>
-    ```
-    $ head -5 sentiment.test.0.DeleteAndRetrieve.yelp
-    ever since joes has changed hands it 's just gotten worse and worse .   ever since joes has changed hands it 's just so worth it .   0
-    there is definitely not enough room in that part of the venue . there is definitely room in that i will continue to go out of the part .     0
-    so basically tasted watered down .      so basically the food is always tasted fresh .  0
-    she said she 'd be back and disappeared for a few minutes .     she said she 'd be back and would recommend it for a few hours .     0
-    i ca n't believe how inconsiderate this pharmacy is .   this pharmacy is still the best in charlotte .  0
+  - sentiment.test.<label:[0,1]>.<method:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:[yelp.amazon,captions]>
+  ```
+  $ head -5 sentiment.test.0.DeleteAndRetrieve.yelp
+  ever since joes has changed hands it 's just gotten worse and worse .   ever since joes has changed hands it 's just so worth it .   0
+  there is definitely not enough room in that part of the venue . there is definitely room in that i will continue to go out of the part .     0
+  so basically tasted watered down .      so basically the food is always tasted fresh .  0
+  she said she 'd be back and disappeared for a few minutes .     she said she 'd be back and would recommend it for a few hours .     0
+  i ca n't believe how inconsiderate this pharmacy is .   this pharmacy is still the best in charlotte .  0
     
     
-    $ head -5 sentiment.test.1.DeleteAndRetrieve.yelp
-    it 's small yet they make you feel right at home .      it 's small yet they make you get it .  1
-    i will be going back and enjoying this great place !    i will be going back and enjoying this garbage !        1
-    the drinks were affordable and a good pour .    the only good thing about the drinks were pour .        1
-    my husband got a ruben sandwich , he loved it . my husband got a ruben sandwich , it was way too salty .        1
-    i signed up for their email and got a coupon .  i signed up for their email and got a coupon .  1
-    ```
+  $ head -5 sentiment.test.1.DeleteAndRetrieve.yelp
+  it 's small yet they make you feel right at home .      it 's small yet they make you get it .  1
+  i will be going back and enjoying this great place !    i will be going back and enjoying this garbage !        1
+  the drinks were affordable and a good pour .    the only good thing about the drinks were pour .        1
+  my husband got a ruben sandwich , he loved it . my husband got a ruben sandwich , it was way too salty .        1
+  i signed up for their email and got a coupon .  i signed up for their email and got a coupon .  1
+  ```
   
 
 
