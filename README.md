@@ -12,7 +12,12 @@ Start reading from run.sh
 - fw: file write
 
 # High-Level Summary
-
+- Command:
+  ```
+  export THEANO_FLAGS=device=cuda0,floatX=float32; 
+  bash run.sh train DeleteAndRetrieve yelp;
+  bash run.sh test DeleteAndRetrieve yelp
+  ```
 - Part 0: input arguments
   - process
     - train
