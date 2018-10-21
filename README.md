@@ -19,6 +19,15 @@ Start reading from run.sh
   bash run.sh test DeleteAndRetrieve yelp
   ```
 - Part 0: input arguments
+  - parameters
+    ```
+    train_rate
+    valid_rate
+    test_rate
+    algo_name: SeqToSeq,ChoEncoderDecoder,ChoEncoderDecoderTopic,ChoEncoderDecoderDT,ChoEncoderDecoderLm,TegEncoderDecoder,BiEncoderAttentionDecoder,BiEncoderAttentionDecoderStyle,LihangEncoderDecoder
+    mode (method): train,generate,generate_b_v,generate_b_v_t,generate_b_v_t_v,generate_emb,generate_b_v_t_g,observe
+    batch_size 
+    ```
   - process
     - train
     - test
@@ -77,9 +86,10 @@ Start reading from run.sh
       #fw: sentiment.test.0.template1.result
     - build output from the retrieved
       #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
-  - 
+  - add data if pass the threshold specified
+    - #fw: sentiment.test.${i:[0,1]}.data.${main_function:[label,orgin]}
 - final output
-  - sentiment.test.<label:\[0,1]>.<method:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:[yelp.amazon,captions]>
+  - sentiment.test.<label:\[0,1]>.<method:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:\[yelp.amazon,captions]>
   ```
   $ head -5 sentiment.test.0.DeleteAndRetrieve.yelp
   ever since joes has changed hands it 's just gotten worse and worse .   ever since joes has changed hands it 's just so worth it .   0
