@@ -54,6 +54,7 @@ Start reading from run.sh
    - create dict data file by putting in train.data.${main_function:\[label,orgin]}
      - #fw: zhi.dict.$main_function:\[label,orgin]
      ```
+     $head zhi.dict.$main_function:\[label,orgin]
      .       0
      the     1
      1       2
