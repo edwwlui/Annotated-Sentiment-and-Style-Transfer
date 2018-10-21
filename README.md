@@ -65,7 +65,8 @@ Start reading from run.sh
   - train
     - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
 - Part 3: test
-  -
+  
+  
 - final output
   - sentiment.test.<label:[0,1]>.<method:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:[yelp.amazon,captions]>
   ```
