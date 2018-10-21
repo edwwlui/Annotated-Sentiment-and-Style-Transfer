@@ -65,10 +65,21 @@ Start reading from run.sh
   - train
     - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
 - Part 3: test
-  
-  
+  - if data==TemplateBased:
+    - get tf-idf score by n-gram from data
+      #fw: sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
+    - add data if pass the threshold specified
+      #fw: sentiment.train.${i:[0,1]}.template1
+      #fw: sentiment.test.${i:[0,1]}.template1
+    - #mkdir sen1, sen0
+    - retrieve according to tf_idf by whoosh
+      #fw: sentiment.test.1.template1.result
+      #fw: sentiment.test.0.template1.result
+    - build output from the retrieved
+      #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
+  - 
 - final output
-  - sentiment.test.<label:[0,1]>.<method:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:[yelp.amazon,captions]>
+  - sentiment.test.<label:\[0,1]>.<method:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:[yelp.amazon,captions]>
   ```
   $ head -5 sentiment.test.0.DeleteAndRetrieve.yelp
   ever since joes has changed hands it 's just gotten worse and worse .   ever since joes has changed hands it 's just so worth it .   0
