@@ -122,7 +122,7 @@ if [ "$main_operation" = "train" ]; then
   	#cp train.data.${main_function:[label,orgin]}.shuffle $train.data.${main_function:[label,orgin]}
 	#overwrite train.data.${main_function:[label,orgin]}
 	cp ${train_data_file}.shuffle ${train_data_file}
-  	#python src/tool/create_dict.py $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin]
+  	#python src/tool/create_dict.py train.data.${main_function:[label,orgin]} zhi.dict.$main_function:[label,orgin]
 	#fw: zhi.dict.$main_function:[label,orgin]
 	echo ">> python ${preprocess_tool_path}create_dict.py ${train_data_file} $dict_data_file"
 	python ${preprocess_tool_path}create_dict.py ${train_data_file} $dict_data_file
@@ -220,9 +220,9 @@ elif [ "$main_operation" = "test" ]; then
 		 for((i=0;i<$main_category_num;i++))
 		 do
 		 	echo ">> src/main.py"
-			#python src/main.py dir dialog_path $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_emb  sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]} 64
+			#python src/main.py dir dialog_path train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_emb  sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]} 64
 		 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${test_file_prefix}${i}.template.${main_function} $batch_size
-		        #python src/main.py dir dialog_path $train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_emb  sentiment.train.${i:[0,1]}.template.${main_function:[label,orgin]} 64
+		        #python src/main.py dir dialog_path train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_emb  sentiment.train.${i:[0,1]}.template.${main_function:[label,orgin]} 64
 			THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_emb ${train_file_prefix}${i}.template.${main_function} $batch_size
 		 done
 
@@ -251,6 +251,7 @@ elif [ "$main_operation" = "test" ]; then
 	if [ "$main_function_orgin" = "RetrieveOnly" ]; then
 		echo ">> get_retrieval_result.py"
 		#python src/tool/get_retrieval_result.py
+		#fw: sentiment.test.{i:[0,1]}.retrieval
 		python ${preprocess_tool_path}get_retrieval_result.py
 		for((i=0;i<$main_category_num;i++))
 		do
@@ -263,12 +264,16 @@ elif [ "$main_operation" = "test" ]; then
 	do
 		echo ">> build_lm_data.py"
 		#python src/tool/build_lm_data.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]} sentiment.train.${i:[0,1]}
+		#for line in arg1: '1\t'+line.strip()+'\t1\t1\n'
+		#fw: sentiment.train.${i:[0,1]}.lm
 		python ${preprocess_tool_path}build_lm_data.py ${orgin_train_file_prefix}${i} ${train_file_prefix}${i}
 		#python src/tool/shuffle.py sentiment.train.${i:[0,1]}.lm
+		#fw: sentiment.train.${i:[0,1]}.lm.shuffle
 		python ${preprocess_tool_path}shuffle.py ${train_file_prefix}${i}.lm
 		#cp sentiment.train.${i:[0,1]}.lm.shuffle sentiment.train.${i:[0,1]}.lm
 		cp ${train_file_prefix}${i}.lm.shuffle ${train_file_prefix}${i}.lm
-		#python src/tool/create_dict.py $sentiment.train.${i:[0,1]}.lm $sentiment.train.${i:[0,1]}.lm.dict
+		#python src/tool/create_dict.py sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict
+		#fw: sentiment.train.${i:[0,1]}.lm.dict
 		python ${preprocess_tool_path}create_dict.py ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict
 	done
 	for((i=0;i<$main_category_num;i++))
