@@ -1,5 +1,5 @@
 import sys
-f=open(sys.argv[1],'r')
+f=open(sys.argv[1],'r')  #sentiment.test.${i:[0,1]}.template1.result
 fw=open(sys.argv[1]+'.result','w')
 tmp=''
 def write_sen(sens,tmp1):
