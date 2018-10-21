@@ -245,7 +245,7 @@ elif [ "$main_operation" = "test" ]; then
 	for((i=0;i<$main_category_num;i++))
 	do
 	echo ">> python src/main.py"
-	#python src/main.py dir dialog_path train.data.${main_function:[label,orgin]} $zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t sentiment.test.${i:[0,1]}.template.$main_function:[label,orgin].emb.result.filter 64
+	#python src/main.py dir dialog_path train.data.${main_function:[label,orgin]} zhi.dict.$main_function:[label,orgin] src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t sentiment.test.${i:[0,1]}.template.$main_function:[label,orgin].emb.result.filter 64
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT generate_b_v_t ${test_file_prefix}${i}.template.${main_function}.emb.result.filter $batch_size
 	done
 	if [ "$main_function_orgin" = "RetrieveOnly" ]; then
