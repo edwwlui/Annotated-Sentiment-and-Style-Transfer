@@ -22,11 +22,11 @@ Start reading from run.sh
     - DeleteOnly
   - data_name
   
-      ||dict_num|dict_threshold|file name: 0|file name: 1|
-      |---|---|---|---|---|
-      |yelp|7000|15|negative|positive|
-      |amazon|10000|5.5|negative|positive|
-      |imagecaption|3000|5|humorous|romantic|
+      ||dict_num|dict_threshold|data name: 0|data name: 1|output name: 0|output name: 1|
+      |---|---|---|---|---|---|---|
+      |yelp|7000|15|-ve|+ve|-ve->+ve|+ve->-ve|
+      |amazon|10000|5.5|-ve|+ve|-ve->+ve|+ve->-ve|
+      |imagecaption|3000|5|humorous|romantic|factual->romantic|factual->humorous|
 - Part 1: configure
   - model_name -> $main_function
     - if $main_function=='DeleteOnly' then $main_function='label'
