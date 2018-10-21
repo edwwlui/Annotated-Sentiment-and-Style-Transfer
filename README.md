@@ -66,6 +66,20 @@ Start reading from run.sh
     - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
   - final output
     - sentiment.test.<label:[0,1]>.<method:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:[yelp.amazon,captions]>
+    ```
+    $ head sentiment.test.0.DeleteAndRetrieve.yelp
+    ever since joes has changed hands it 's just gotten worse and worse .   ever since joes has changed hands it 's just so worth it .   0
+there is definitely not enough room in that part of the venue . there is definitely room in that i will continue to go out of the part .     0
+so basically tasted watered down .      so basically the food is always tasted fresh .  0
+she said she 'd be back and disappeared for a few minutes .     she said she 'd be back and would recommend it for a few hours .     0
+i ca n't believe how inconsiderate this pharmacy is .   this pharmacy is still the best in charlotte .  0
+just left and took it off the bill .    quick and everything was good and they took it .        0
+it is n't terrible , but it is n't very good either .   the food is n't delicious , but it is n't awesome and the food is delicious .        0
+definitely disappointed that i could not use my birthday gift ! definitely look forward to my birthday gift !   0
+new owner , i heard - but i do n't know the details .   new owner , i got a great guy , as the details .        0
+but it probably sucks too !     but it probably was very nice and very clean too !      0
+
+    ```
   
 
 
