@@ -72,7 +72,7 @@ Start reading from run.sh
      ,       5
      ```
   - train
-    - python src/main.py ../model $train_data_file $dict_data_file src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderDT train $batch_size
+    - train in the mode of train
 - Part 3: test
   - if data==TemplateBased:
     - get tf-idf score by n-gram from data
@@ -88,13 +88,22 @@ Start reading from run.sh
       #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
   - preprocess
     - add data if pass the threshold specified
-      - #fw: sentiment.test.${i:[0,1]}.data.${main_function:\[label,orgin]}
+      - #fw: sentiment.test.${i:\[0,1]}.data.${main_function:\[label,orgin]}
     - train with input files of ${test_file_prefix}${i}.template.${main_function} and ${train_file_prefix}${i}.template.${main_function} for the mode(method) of generate_emb
     - find nearest neighbor with emb
-      - #fw: sentiment.test.${i:[0,1]}.template.$main_function:\[label,orgin].emb.result
+      - #fw: sentiment.test.${i:\[0,1]}.template.$main_function:\[label,orgin].emb.result
     - build output from the nearest neighbor
-      - #fw: sentiment.test.${i:[0,1]}.template.${main_function:\[label,orgin]}.emb.result.filter
+      - #fw: sentiment.test.${i:\[0,1]}.template.${main_function:\[label,orgin]}.emb.result.filter
   - test
+    - train in the mode of generate_b_v_t with input files of ${test_file_prefix}${i}.template.${main_function}.emb.result.filter
+    - if RetrieveOnly
+      - get retrieval result sentiment.test.{i:\[0,1]}.retrieval from sentiment.test.{i:\[0,1]}.template.orgin.emb.result.filter.result and cp to sentiment.test.${i:\[0,1]}.${main_function_orgin:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:\[yelp,amazon,imagecaption]}
+    - foramt data from data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]}
+    - shuffle the data and overwrite to sentiment.train.${i:[0,1]}.lm
+    - create dict from the shuffle data
+    - train in the mode of train
+    - train in the mode of generate_b_v_t_v with the input file of ${test_file_prefix}0.template.${main_function}.emb.result.filter.result
+    - get final result and overwrite to sentiment.test.${i:[0,1]}.${main_function_orgin:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:[yelp,amazon,imagecaption]}
 - final output
   - sentiment.test.<label:\[0,1]>.<method:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:\[yelp.amazon,captions]>
   ```
