@@ -38,7 +38,7 @@ for line in f:
 		sen2=write_sen(words,tmp2)
 		rule_dict[sen1]=sen2
 f.close()
-f=open(sys.argv[2],'r')
+f=open(sys.argv[2],'r')  #data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]}
 for line in f:
 	line=line.strip()
 	if(rule_dict.get(line)!=None):
