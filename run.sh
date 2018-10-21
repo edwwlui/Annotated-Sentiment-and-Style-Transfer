@@ -301,6 +301,7 @@ elif [ "$main_operation" = "test" ]; then
 	for((i=0;i<$main_category_num;i++))
 	do
 	    #python src/tool/get_final_result.py sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result.filter.result.result ${i:[0,1]}
+	    #fw: sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result.filter.result.result.final_result
 	    echo ">>python ${preprocess_tool_path}get_final_result.py ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result.result ${i}"
 	    python ${preprocess_tool_path}get_final_result.py ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result.result ${i}
 	    #cp sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result.filter.result.result.final_result sentiment.test.${i:[0,1]}.${main_function_orgin:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:[yelp,amazon,imagecaption]}
