@@ -24,8 +24,8 @@ Start reading from run.sh
     train_rate
     valid_rate
     test_rate
-    algo_name: SeqToSeq,ChoEncoderDecoder,ChoEncoderDecoderTopic,ChoEncoderDecoderDT,ChoEncoderDecoderLm,TegEncoderDecoder,BiEncoderAttentionDecoder,BiEncoderAttentionDecoderStyle,LihangEncoderDecoder
-    mode (method): train,generate,generate_b_v,generate_b_v_t,generate_b_v_t_v,generate_emb,generate_b_v_t_g,observe
+    algo_name: SeqToSeq, ChoEncoderDecoder, ChoEncoderDecoderTopic, ChoEncoderDecoderDT, ChoEncoderDecoderLm, TegEncoderDecoder, BiEncoderAttentionDecoder, BiEncoderAttentionDecoderStyle, LihangEncoderDecoder
+    mode (method): train, generate, generate_b_v, generate_b_v_t, generate_b_v_t_v, generate_emb, generate_b_v_t_g, observe
     batch_size 
     ```
   - process
@@ -86,8 +86,15 @@ Start reading from run.sh
       #fw: sentiment.test.0.template1.result
     - build output from the retrieved
       #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
-  - add data if pass the threshold specified
-    - #fw: sentiment.test.${i:[0,1]}.data.${main_function:[label,orgin]}
+  - preprocess
+    - add data if pass the threshold specified
+      - #fw: sentiment.test.${i:[0,1]}.data.${main_function:\[label,orgin]}
+    - train with input files of ${test_file_prefix}${i}.template.${main_function} and ${train_file_prefix}${i}.template.${main_function} for the mode(method) of generate_emb
+    - find nearest neighbor with emb
+      - #fw: sentiment.test.${i:[0,1]}.template.$main_function:\[label,orgin].emb.result
+    - build output from the nearest neighbor
+      - #fw: sentiment.test.${i:[0,1]}.template.${main_function:\[label,orgin]}.emb.result.filter
+  - test
 - final output
   - sentiment.test.<label:\[0,1]>.<method:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:\[yelp.amazon,captions]>
   ```
