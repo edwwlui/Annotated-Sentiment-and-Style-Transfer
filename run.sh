@@ -207,9 +207,11 @@ elif [ "$main_operation" = "test" ]; then
 			 python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i}
 		         echo ">> filter_template_test.py"
 		         #python src/tool/filter_template_test.py sentiment.test.${i:[0,1]} $main_function:[label,orgin]
+			 #fw: sentiment.test.${i:[0,1]}.data.$main_function:[label,orgin]
 			 python ${preprocess_tool_path}filter_template_test.py ${test_file_prefix}${i} ${main_function}
 		         echo ">> filter_template.py"
 		         #python src/tool/filter_template.py sentiment.train.${i:[0,1]} $main_function:[label,orgin]
+			 #fw sentiment.train.${i:[0,1]}.data.$main_function:[label,orgin]
 			 python ${preprocess_tool_path}filter_template.py ${train_file_prefix}${i} ${main_function}
 		done
 
@@ -228,8 +230,10 @@ elif [ "$main_operation" = "test" ]; then
 		 do
 		 	echo ">> find_nearst_neighbot_all.py"
 			#python src/tool/find_nearst_neighbot_all.py ${i:[0,1]} ${main_data:[yelp,amazon,imagecaption]} $main_function:[label,orgin]
-		 	python ${preprocess_tool_path}find_nearst_neighbot_all.py $i $main_data ${main_function}
+		 	#fw: sentiment.test.${i:[0,1]}.template.$main_function:[label,orgin].emb.result
+			python ${preprocess_tool_path}find_nearst_neighbot_all.py $i $main_data ${main_function}
 		 	#python src/tool/form_test_data.py sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result
+			#fw: sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}.emb.result.filter
 			python ${preprocess_tool_path}form_test_data.py ${test_file_prefix}${i}.template.${main_function}.emb.result
 		 done
 
@@ -278,14 +282,14 @@ elif [ "$main_operation" = "test" ]; then
 	vaild_num=0
 	i=0
 	eval $(awk 'BEGIN{printf "vaild_rate=%.10f",'$vaild_num'/'$line_num'}')
-	#python src/main.py dir dialog_path sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t_v sentiment.test1.template.${main_function:[label,orgin]}.emb.result.filter.result 64
+	#python src/main.py dir dialog_path sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t_v sentiment.test.1.template.${main_function:[label,orgin]}.emb.result.filter.result 64
 	echo ">> THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}1.template.${main_function}.emb.result.filter.result $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}1.template.${main_function}.emb.result.filter.result $batch_size
 	vaild_num=1
 	i=1
 	eval $(awk 'BEGIN{printf "vaild_rate=%.10f",'$vaild_num'/'$line_num'}')
 	
-	#python src/main.py dir dialog_path sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t_v sentiment.test0.template.${main_function:[label,orgin]}.emb.result.filter.result 64
+	#python src/main.py dir dialog_path sentiment.train.${i:[0,1]}.lm sentiment.train.${i:[0,1]}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt train_rate valid_rate test_rate algo_name generate_b_v_t_v sentiment.test.0.template.${main_function:[label,orgin]}.emb.result.filter.result 64
 	echo ">>THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}0.template.${main_function}.emb.result.filter.result $batch_size"
 	THEANO_FLAGS="${THEANO_FLAGS}" python src/main.py ../model ${train_file_prefix}${i}.lm ${train_file_prefix}${i}.lm.dict src/aux_data/stopword.txt src/aux_data/embedding.txt $train_rate $vaild_rate $test_rate ChoEncoderDecoderLm generate_b_v_t_v ${test_file_prefix}0.template.${main_function}.emb.result.filter.result $batch_size
 
