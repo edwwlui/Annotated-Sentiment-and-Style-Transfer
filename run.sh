@@ -78,17 +78,17 @@ if [ "$main_operation" = "train" ]; then
 	python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix
 
 	if [ "$main_data" = "amazon" ]; then
-  	#use bash instead of sh, otherwise error: bad for loop var
-  	#i<2
-	for((i=0;i < $main_category_num; i++))
-	do
-          #python src/tool/use_nltk_to_filter.py sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
-	  #fw: sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin].filter
-          python ${preprocess_tool_path}use_nltk_to_filter.py ${train_file_prefix}${i}.tf_idf.$main_function
-          #cp sentiment.train.${i:[0,1}.tf_idf.${main_function:[label,orgin]}.filter sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
-          #overwrite sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
-	  cp ${train_file_prefix}${i}.tf_idf.${main_function}.filter ${train_file_prefix}${i}.tf_idf.$main_function
-	done
+		#use bash instead of sh, otherwise error: bad for loop var
+		#i<2
+		for((i=0;i < $main_category_num; i++))
+		do
+		  #python src/tool/use_nltk_to_filter.py sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
+		  #fw: sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin].filter
+		  python ${preprocess_tool_path}use_nltk_to_filter.py ${train_file_prefix}${i}.tf_idf.$main_function
+		  #cp sentiment.train.${i:[0,1}.tf_idf.${main_function:[label,orgin]}.filter sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
+		  #overwrite sentiment.train.${i:[0,1]}.tf_idf.$main_function:[label,orgin]
+		  cp ${train_file_prefix}${i}.tf_idf.${main_function}.filter ${train_file_prefix}${i}.tf_idf.$main_function
+		done
 	fi
 
 	for((i=0;i < $main_category_num; i++))
@@ -152,26 +152,32 @@ elif [ "$main_operation" = "test" ]; then
 	if true; then
 		if [ "$main_function" = "TemplateBased" ]; then
 			#src/tool/filter_style_ngrams.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train. 2 $main_function:[label,orgin] sentiment.train.
+			#fw: sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
 			python ${preprocess_tool_path}filter_style_ngrams.py $orgin_train_file_prefix $main_category_num $main_function $train_file_prefix
 			for((i=0;i < $main_category_num; i++))
 			do
 				echo ">> prepare_templatebased_data.py"
-				#src/tool/prepare_templatebased_data.py sentiment.train.${i:[0,1]} data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]} sentiment.train.${i:[1,2]} ${main_dict_thre:[15,5.5,5]} ${main_dict_num:[7000,10000,3000]}
+				#src/tool/prepare_templatebased_data.py sentiment.train.${i:[0,1]} data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]} sentiment.train.${i:[0,1]} ${main_dict_thre:[15,5.5,5]} ${main_dict_num:[7000,10000,3000]}
+				#fw: sentiment.train.${i:[0,1]}.template1
 				python ${preprocess_tool_path}prepare_templatebased_data.py ${train_file_prefix}$i ${orgin_train_file_prefix}$i ${train_file_prefix}$i $main_dict_thre $main_dict_num
-				#src/tool/prepare_templatebased_data.py sentiment.train.${i:[0,1]} data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]} sentiment.test.${i:[1,2]} ${main_dict_thre:[15,5.5,5]} ${main_dict_num:[7000,10000,3000]}
+				#src/tool/prepare_templatebased_data.py sentiment.train.${i:[0,1]} data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]} sentiment.test.${i:[0,1]} ${main_dict_thre:[15,5.5,5]} ${main_dict_num:[7000,10000,3000]}
+				#fw: sentiment.test.${i:[0,1]}.template1
 				python ${preprocess_tool_path}prepare_templatebased_data.py ${train_file_prefix}$i ${orgin_test_file_prefix}$i ${test_file_prefix}$i $main_dict_thre $main_dict_num
 			done
 			mkdir sen1
 			mkdir sen0
 			echo ">> retrieve_mode_my_1.py"
 			#src/tool/retrieve_mode_my_1.py
+			#fw: sentiment.test.1.template1.result
 			python ${preprocess_tool_path}retrieve_mode_my_1.py
 			#src/tool/retrieve_mode_my_0.py
+			#fw: sentiment.test.0.template1.result
 			python ${preprocess_tool_path}retrieve_mode_my_0.py
 			for((i=0;i < $main_category_num; i++))
 			do
 				echo ">> build_templatebased.py"
 				#python src/tool/build_templatebased.py sentiment.test.${i:[0,1]}.template1.result data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]}
+				#fw: sentiment.test.${i:[0,1]}.template1.result.result
 				python ${preprocess_tool_path}build_templatebased.py ${test_file_prefix}${i}.template1.result ${orgin_test_file_prefix}${i}
 				#cp sentiment.test.${i:[0,1]}.template1.result.result sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
 				cp ${test_file_prefix}${i}.template1.result.result ${test_file_prefix}${i}.${main_function}.$main_data
@@ -198,7 +204,6 @@ elif [ "$main_operation" = "test" ]; then
 		         echo ">> preprocess_test.py"
 			 #python src/tool/preprocess_test.py data/${main_data:[yelp,amazon,imagecaption]}/sentiment.test.${i:[0,1]} sentiment.train.${i:[0,1]} ${main_function:[label,orgin]} ${main_dict_num:[7000,10000,3000]} ${main_dict_thre:[15,5.5,5]} sentiment.test.${i:[1,2]}
 			 #fw: sentiment.test.${i:[0,1]}.data.${main_function:[label,orgin]}
-		         #python src/tool/preprocess_test.py
 			 python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i}
 		         echo ">> filter_template_test.py"
 		         #python src/tool/filter_template_test.py sentiment.test.${i:[0,1]} $main_function:[label,orgin]
