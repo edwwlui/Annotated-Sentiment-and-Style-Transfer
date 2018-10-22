@@ -21,6 +21,9 @@ Start reading from run.sh
 - Part 0: input arguments
   - parameters
     ```
+    dict_num
+    dict_threshold
+    dev_num
     train_rate
     valid_rate
     test_rate
@@ -46,11 +49,11 @@ Start reading from run.sh
     - if $main_function=='DeleteOnly' then $main_function='label'
     - if $main_function=='DeleteAndRetrieve' or 'RetrieveOnly' then $main_function='orgin'
 - Part 2: train 
-  - get tf-idf score by n-gram from data 
+  - get tf-idf score and Euclidean dist for Retrieve and n-gram for Delete from data 
     - #fw: sentiment.train.\[0,1].tf_idf.$main_function:\[label,orgin]
   - if data==amazon: use nltk to filter by tf-idf 
      - #overwrite: sentiment.train.${i:\[1,2]}.tf_idf.$main_function:\[label,orgin]
-  - add data if pass the threshold specified 
+  - add data of attribute marker if pass the threshold specified 
     - #fw: sentiment.train.${i:\[0,1]}.data.${main_function:[label,orgin]}
     - #fw: sentiment.dev.${i:\[0,1]}.data.${main_function:[label,orgin]}
   - integrate all training and testing files into
@@ -77,7 +80,7 @@ Start reading from run.sh
   - if data==TemplateBased:
     - get tf-idf score by n-gram from data
       #fw: sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
-    - add data if pass the threshold specified
+    - add data of attribute marker if pass the threshold specified
       #fw: sentiment.train.${i:[0,1]}.template1
       #fw: sentiment.test.${i:[0,1]}.template1
     - #mkdir sen1, sen0
@@ -88,7 +91,7 @@ Start reading from run.sh
     - build output from the retrieved
       #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
   - preprocess
-    - add data if pass the threshold specified
+    - add data of attribute marker if pass the threshold specified 
       - #fw: sentiment.test.${i:\[0,1]}.data.${main_function:\[label,orgin]}
     - train with input files of ${test_file_prefix}${i}.template.${main_function} and ${train_file_prefix}${i}.template.${main_function} for the mode(method) of generate_emb
     - find nearest neighbor with emb
