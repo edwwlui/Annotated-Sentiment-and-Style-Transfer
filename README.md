@@ -81,7 +81,8 @@ Start reading from run.sh
       #fw: sentiment.train.${i:[0,1]}.template1
       #fw: sentiment.test.${i:[0,1]}.template1
     - #mkdir sen1, sen0
-    - retrieve according to tf_idf by whoosh
+    - retrieve according to tf_idf by whoosh and replace slot-holdplaces
+    
       #fw: sentiment.test.1.template1.result
       #fw: sentiment.test.0.template1.result
     - build output from the retrieved
