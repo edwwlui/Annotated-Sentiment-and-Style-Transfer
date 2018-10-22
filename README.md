@@ -39,11 +39,11 @@ Start reading from run.sh
     - DeleteOnly
   - data_name
   
-      ||dict_num|dict_threshold|data name: 0|data name: 1|output name: 0|output name: 1|
-      |---|---|---|---|---|---|---|
-      |yelp|7000|15|-ve|+ve|-ve to +ve|+ve to -ve|
-      |amazon|10000|5.5|-ve|+ve|-ve to +ve|+ve to -ve|
-      |imagecaption|3000|5|humorous|romantic|factual to romantic|factual to humorous|
+      ||dict_num|dict_threshold|dev_num|data name: 0|data name: 1|output name: 0|output name: 1|
+      |---|---|---|---|---|---|---|---|
+      |yelp|7000|15|4000|-ve|+ve|-ve to +ve|+ve to -ve|
+      |amazon|10000|5.5|1000|-ve|+ve|-ve to +ve|+ve to -ve|
+      |imagecaption|3000|5|2000|humorous|romantic|factual to romantic|factual to humorous|
 - Part 1: configure
   - model_name -> $main_function
     - if $main_function=='DeleteOnly' then $main_function='label'
