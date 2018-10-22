@@ -24,9 +24,6 @@ Start reading from run.sh
     dict_num
     dict_threshold
     dev_num
-    train_rate
-    valid_rate
-    test_rate
     algo_name: SeqToSeq, ChoEncoderDecoder, ChoEncoderDecoderTopic, ChoEncoderDecoderDT, ChoEncoderDecoderLm, TegEncoderDecoder, BiEncoderAttentionDecoder, BiEncoderAttentionDecoderStyle, LihangEncoderDecoder
     mode (method): train, generate, generate_b_v, generate_b_v_t, generate_b_v_t_v, generate_emb, generate_b_v_t_g, observe
     batch_size 
