@@ -41,6 +41,7 @@ Start reading from run.sh
       |Yelp|7000|15|4000*|-ve|+ve|-ve to +ve|+ve to -ve|448259|
       |Amazon|10000|5.5|1000|-ve|+ve|-ve to +ve|+ve to -ve|557997|
       |Imagecaption|3000|5|2000|humorous|romantic|factual to romantic|factual to humorous|13600|
+      |Formality||||||||224241|
 - Part 1: configure
   - model_name -> $main_function
     - if $main_function=='DeleteOnly' then $main_function='label'
