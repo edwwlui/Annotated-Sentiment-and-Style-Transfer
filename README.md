@@ -26,7 +26,21 @@ Start reading from run.sh
     dev_num
     algo_name: SeqToSeq, ChoEncoderDecoder, ChoEncoderDecoderTopic, ChoEncoderDecoderDT, ChoEncoderDecoderLm, TegEncoderDecoder, BiEncoderAttentionDecoder, BiEncoderAttentionDecoderStyle, LihangEncoderDecoder
     mode (method): train, generate, generate_b_v, generate_b_v_t, generate_b_v_t_v, generate_emb, generate_b_v_t_g, observe
-    batch_size 
+    batch_size
+    self.conf_dict = {
+    'split_level': 'zi', 
+    'pre_word_embedding': False,
+    'word_embedding_dim': 128, 
+    'n_topics': 5000, 
+    'topic_embedding_dim': 256, 
+    'max_sentence_word_num': 150,
+    'min_sentence_word_num': 1, 
+    'is_BEG': False, 
+    'is_END': True,
+    'hidden_dim': 512, 
+    'charset': charset, 
+    'shuffle': False,
+    'save_freq': 100}
     ```
   - process
     - train
