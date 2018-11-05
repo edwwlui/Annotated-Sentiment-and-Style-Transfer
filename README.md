@@ -95,6 +95,7 @@ Start reading from run.sh
       
       #fw: sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
     - add data of attribute marker if pass the threshold specified
+    
       #fw: sentiment.train.${i:[0,1]}.template1
       #fw: sentiment.test.${i:[0,1]}.template1
     - #mkdir sen1, sen0
