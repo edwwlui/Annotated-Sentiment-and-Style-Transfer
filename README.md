@@ -92,6 +92,7 @@ Start reading from run.sh
 - Part 3: test
   - if data==TemplateBased:
     - get tf-idf score by n-gram from data
+      
       #fw: sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
     - add data of attribute marker if pass the threshold specified
       #fw: sentiment.train.${i:[0,1]}.template1
