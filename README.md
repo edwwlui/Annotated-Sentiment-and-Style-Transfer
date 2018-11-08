@@ -142,9 +142,10 @@ Start reading from run.sh
   i signed up for their email and got a coupon .  i signed up for their email and got a coupon .  1
   ```
   # Modifications
-  - theano.rc allow_downcast
-  - added "errors=replace"
-  experiments
-  - change string.atoi to string.atof
+  - debugging
+    - added "errors=replace"
+  - experiments
+    - change string.atoi to string.atof
+    - theano.rc allow_downcast
 
 
