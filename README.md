@@ -99,7 +99,15 @@ Start reading from run.sh
     ```
   - shuffle
     - #fw: train.data.${main_function:\[label,orgin]}.shuffle
+    ```
+    visiting this salon and come out looking .	i highly recommend visiting this salon and come out looking fabulous .	i highly recommend fabulous	1
+holy cow , this place was	holy cow , this place was good !	good time 	1
+ross is located in an outdoor strip mall .	ross is located in an outdoor strip mall .	self	1
+    ```
     - #fw: test.data.${main_function:\[label,orgin]}.shuffle
+    ```
+    
+    ```
     - append them and overwrite to the initial train.data.${main_function:\[label,orgin]}
    - create dict data file by putting in train.data.${main_function:\[label,orgin]}
      - #fw: zhi.dict.$main_function:\[label,orgin]
@@ -119,14 +127,27 @@ Start reading from run.sh
     - get tf-idf score by n-gram from data
       
       #fw: sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
+      ```
+      
+      ```
     - add data of attribute marker if pass the threshold specified
     
       #fw: sentiment.train.${i:[0,1]}.template1
+      ```
+      
+      ```
       #fw: sentiment.test.${i:[0,1]}.template1
+      ```
+      
+      ```
     - #mkdir sen1, sen0
     - retrieve according to tf_idf by whoosh and replace slot-placeholders
     
       #fw: sentiment.test.1.template1.result
+      ```
+      
+      ```
+      
       #fw: sentiment.test.0.template1.result
     - build output from the retrieved
       #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
