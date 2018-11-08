@@ -101,12 +101,14 @@ Start reading from run.sh
     - #fw: train.data.${main_function:\[label,orgin]}.shuffle
     ```
     visiting this salon and come out looking .	i highly recommend visiting this salon and come out looking fabulous .	i highly recommend fabulous	1
-holy cow , this place was	holy cow , this place was good !	good time 	1
-ross is located in an outdoor strip mall .	ross is located in an outdoor strip mall .	self	1
+    holy cow , this place was	holy cow , this place was good !	good time 	1
+    ross is located in an outdoor strip mall .	ross is located in an outdoor strip mall .	self	1
     ```
     - #fw: test.data.${main_function:\[label,orgin]}.shuffle
     ```
-    
+    !	wonderful meal !	wonderful meal	1
+    spoke to a person at their office !	spoke to a person at their office and was told sorry !	and was told sorry	1
+    to my friends or family .	i would not recommend this to my friends or family .	i would not recommend would not recommend this	1
     ```
     - append them and overwrite to the initial train.data.${main_function:\[label,orgin]}
    - create dict data file by putting in train.data.${main_function:\[label,orgin]}
@@ -127,38 +129,45 @@ ross is located in an outdoor strip mall .	ross is located in an outdoor strip m
     - get tf-idf score by n-gram from data
       
       #fw: sentiment.train.[0,1].tf_idf.$main_function:[label,orgin]
-      ```
-      
-      ```
+
     - add data of attribute marker if pass the threshold specified
     
       #fw: sentiment.train.${i:[0,1]}.template1
-      ```
-      
-      ```
+     
       #fw: sentiment.test.${i:[0,1]}.template1
-      ```
       
-      ```
     - #mkdir sen1, sen0
     - retrieve according to tf_idf by whoosh and replace slot-placeholders
     
       #fw: sentiment.test.1.template1.result
-      ```
-      
-      ```
-      
+
       #fw: sentiment.test.0.template1.result
     - build output from the retrieved
       #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
   - preprocess
     - add data of attribute marker if pass the threshold specified 
       - #fw: sentiment.test.${i:\[0,1]}.data.${main_function:\[label,orgin]}
+      ```
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1
+      there is definitely room in that part of the venue .	there is definitely not enough room in that part of the venue .	not enough	1
+      so basically tasted	so basically tasted watered down .	watered down .	1
+      ```
+      
     - train with input files of ${test_file_prefix}${i}.template.${main_function} and ${train_file_prefix}${i}.template.${main_function} for the mode(method) of generate_emb
     - find nearest neighbor with emb
       - #fw: sentiment.test.${i:\[0,1]}.template.$main_function:\[label,orgin].emb.result
+      ```
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.508009486086	ever since the new folks took over this place	ever since the new folks took over this place has been wonderful .	has been wonderful been wonderful .	1
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.455706522823	ever since then , this restaurant has been my .	ever since then , this restaurant has been my guilty pleasure .	guilty pleasure	1
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.430749302283	ever since i tried sonic back in _num_ i have there food .	ever since i tried sonic back in _num_ i have loved there food .	loved	1
+      ```
     - build output from the nearest neighbor
       - #fw: sentiment.test.${i:\[0,1]}.template.${main_function:\[label,orgin]}.emb.result.filter
+      ```
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	has been wonderful been wonderful .	1	ever since the new folks took over this place has been wonderful .	0.508009486086
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	guilty pleasure	1	ever since then , this restaurant has been my guilty pleasure .	0.455706522823
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	loved	1	ever since i tried sonic back in _num_ i have loved there food .	0.430749302283
+      ```
   - test
     - train in the mode of generate_b_v_t with input files of ${test_file_prefix}${i}.template.${main_function}.emb.result.filter
     - if RetrieveOnly
