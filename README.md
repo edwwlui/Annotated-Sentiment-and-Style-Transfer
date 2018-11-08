@@ -63,15 +63,40 @@ Start reading from run.sh
 - Part 2: train 
   - get tf-idf score and Euclidean dist for Retrieve and n-gram for Delete from data 
     - #fw: sentiment.train.\[0,1].tf_idf.$main_function:\[label,orgin]
+    ```
+    the worst	2698.0
+    worst	1187.5
+    very disappointed	838.0
+    ```
   - if data==amazon: use nltk to filter by tf-idf 
      - #overwrite: sentiment.train.${i:\[1,2]}.tf_idf.$main_function:\[label,orgin]
   - add data of attribute marker if pass the threshold specified 
   
     - #fw: sentiment.train.${i:\[0,1]}.data.${main_function:[label,orgin]}
+    ```
+    daily specials and ice cream which	they also have daily specials and ice cream which is really good .	they also have is really good .	1
+    daily specials and ice cream which	they also have daily specials and ice cream which is really good .	they also have great is so good . 	1
+    daily specials and ice cream which	they also have daily specials and ice cream which is really good .	they also make also really good . 	1
+    ```
     - #fw: sentiment.dev.${i:\[0,1]}.data.${main_function:[label,orgin]}
+    ```
+    these donuts have texture and taste .	these donuts have the perfect texture and taste .	the perfect	1
+    the price .	good food for the price .	good food for	1
+    a little dirty on the inside , but that work there !	a little dirty on the inside , but wonderful people that work there !	wonderful people	1
+    ```
   - integrate all training and testing files into
     - train.data.${main_function:\[label,orgin]}
+    ```
+    visiting this salon and come out looking .	i highly recommend visiting this salon and come out looking fabulous .	i highly recommend fabulous	1
+    holy cow , this place was	holy cow , this place was good !	good time 	1
+    ross is located in an outdoor strip mall .	ross is located in an outdoor strip mall .	self	1
+    ```
     - test.data.${main_function:\[label,orgin]}
+    ```
+    windows have n't in years you can see scum on them .	windows have n't been cleaned in years you can see scum on them .	been cleaned	1
+    waitresses are	waitresses are slow .	slow .	1
+    just	just a mess avoid at all costs !	a mess avoid at all costs at all costs !	1
+    ```
   - shuffle
     - #fw: train.data.${main_function:\[label,orgin]}.shuffle
     - #fw: test.data.${main_function:\[label,orgin]}.shuffle
