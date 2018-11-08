@@ -143,11 +143,12 @@ Start reading from run.sh
   ```
   # Modifications
   - debugging
-    - added "errors=replace"
+    - tried "errors=ignore" instead of "errors=replace"
   - experiments
-    - changed string.atoi to string.atof
+    
     - made theano.rc allow_downcast
   - solved
     - out of memory: smaller batch
   - abandoned changes
     - valueerrors: numpy
+    - changed string.atoi to string.atof
