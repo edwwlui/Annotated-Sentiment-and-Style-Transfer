@@ -147,5 +147,7 @@ Start reading from run.sh
   - experiments
     - changed string.atoi to string.atof
     - made theano.rc allow_downcast
-
-
+  - solved
+    - out of memory: smaller batch
+  - abandoned changes
+    - valueerrors: numpy
