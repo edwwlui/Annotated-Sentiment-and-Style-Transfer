@@ -151,7 +151,7 @@ Start reading from run.sh
       there is definitely room in that part of the venue .	there is definitely not enough room in that part of the venue .	not enough	1
       so basically tasted	so basically tasted watered down .	watered down .	1
       ```
-    - filter lines which are lines[-2]!='self' and the same as the previous line
+    - filter lines which are lines[-2]!='self' (self means style=='' ) and the same as the previous line
       ```
       nothing really special & not worthy of the $ tag .	nothing really special & not worthy of the $ _num_ price tag .	_num_ price	1
       second , the steak hoagie , it	second , the steak hoagie , it is atrocious .	is atrocious .	1
