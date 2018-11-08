@@ -115,7 +115,7 @@ Start reading from run.sh
      ,       5
      ```
   - train
-    - train in the mode of train
+    - train model in the mode of "train" (no output file)
 - Part 3: test
   - if data==TemplateBased:
     - get tf-idf score by n-gram from data
@@ -177,14 +177,28 @@ Start reading from run.sh
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	loved	1	ever since i tried sonic back in _num_ i have loved there food .	0.430749302283
       ```
   - test
-    - train in the mode of generate_b_v_t with input files of ${test_file_prefix}${i}.template.${main_function}.emb.result.filter
+    - train in the mode of "generate_b_v_t"
+      input: ${test_file_prefix}${i}.template.${main_function}.emb.result.filter
+      output: ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result
+      ```
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	has been wonderful been wonderful .	1	ever since the new folks took over this place has been wonderful .	0.508009486086	ever since joes has changed it 's just has been wonderful .	0.0406288546875
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	guilty pleasure	1	ever since then , this restaurant has been my guilty pleasure .	0.455706522823	ever since joes has changed it goes just out amazing !	0.070268826555
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	loved	1	ever since i tried sonic back in _num_ i have loved there food .	0.430749302283	ever since rubio has changed it 's just been delicious .	0.0555836258555
+      ```
     - if RetrieveOnly
       - get retrieval result sentiment.test.{i:\[0,1]}.retrieval from sentiment.test.{i:\[0,1]}.template.orgin.emb.result.filter.result and cp to sentiment.test.${i:\[0,1]}.${main_function_orgin:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:\[yelp,amazon,imagecaption]}
     - foramt data from data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]}
     - shuffle the data and overwrite to sentiment.train.${i:[0,1]}.lm
     - create dict from the shuffle data
-    - train in the mode of train
-    - train in the mode of generate_b_v_t_v with the input file of ${test_file_prefix}0.template.${main_function}.emb.result.filter.result
+    - train model in the mode of "train" (no output file)
+    - train in the mode of "generate_b_v_t_v" 
+      input: ${test_file_prefix}0.template.${main_function}.emb.result.filter.result
+      output: ${test_file_prefix}0.template.${main_function}.emb.result.filter.result.result
+      ```
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	has been wonderful been wonderful .	1	ever since the new folks took over this place has been wonderful .	0.508009486086	ever since joes has changed it 's just has been wonderful .	0.0406288546875	4.85057830811
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	guilty pleasure	1	ever since then , this restaurant has been my guilty pleasure .	0.455706522823	ever since joes has changed it goes just out amazing !	0.070268826555	6.07906532288
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	loved	1	ever since i tried sonic back in _num_ i have loved there food .	0.430749302283	ever since rubio has changed it 's just been delicious .	0.0555836258555	4.91738843918
+      ```
     - get final result and overwrite to sentiment.test.${i:[0,1]}.${main_function_orgin:[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:[yelp,amazon,imagecaption]}
 - final output
   - sentiment.test.<label:\[0,1]>.<method:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]>.<dataset:\[yelp.amazon,captions]>
