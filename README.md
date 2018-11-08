@@ -145,7 +145,7 @@ Start reading from run.sh
   - debugging
     - added "errors=replace"
   - experiments
-    - change string.atoi to string.atof
-    - theano.rc allow_downcast
+    - changed string.atoi to string.atof
+    - made theano.rc allow_downcast
 
 
