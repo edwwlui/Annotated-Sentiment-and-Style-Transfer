@@ -166,7 +166,10 @@ Start reading from run.sh
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.455706522823	ever since then , this restaurant has been my .	ever since then , this restaurant has been my guilty pleasure .	guilty pleasure	1
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.430749302283	ever since i tried sonic back in _num_ i have there food .	ever since i tried sonic back in _num_ i have loved there food .	loved	1
       ```
-    - build output from the nearest neighbor
+    - rearrange the output from the nearest neighbor
+      ```
+      fw.write(lines[0]+'\t'+lines[1]+'\t'+lines[-2]+'\t'+lines[3]+'\t'+lines[-3]+'\t'+lines[4]+'\n')	
+      ```
       - #fw: sentiment.test.${i:\[0,1]}.template.${main_function:\[label,orgin]}.emb.result.filter
       ```
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	has been wonderful been wonderful .	1	ever since the new folks took over this place has been wonderful .	0.508009486086
