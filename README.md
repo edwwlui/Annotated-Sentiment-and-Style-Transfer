@@ -179,6 +179,7 @@ Start reading from run.sh
   - test
     - train in the mode of "generate_b_v_t"
       input: ${test_file_prefix}${i}.template.${main_function}.emb.result.filter
+      
       output: ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result
       ```
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	has been wonderful been wonderful .	1	ever since the new folks took over this place has been wonderful .	0.508009486086	ever since joes has changed it 's just has been wonderful .	0.0406288546875
@@ -187,12 +188,14 @@ Start reading from run.sh
       ```
     - if RetrieveOnly
       - get retrieval result sentiment.test.{i:\[0,1]}.retrieval from sentiment.test.{i:\[0,1]}.template.orgin.emb.result.filter.result and cp to sentiment.test.${i:\[0,1]}.${main_function_orgin:\[DeleteOnly,DeleteAndRetrieve,RetrieveOnly]}.${main_data:\[yelp,amazon,imagecaption]}
+      
     - foramt data from data/${main_data:[yelp,amazon,imagecaption]}/sentiment.train.${i:[0,1]}
     - shuffle the data and overwrite to sentiment.train.${i:[0,1]}.lm
     - create dict from the shuffle data
     - train model in the mode of "train" (no output file)
     - train in the mode of "generate_b_v_t_v" 
       input: ${test_file_prefix}0.template.${main_function}.emb.result.filter.result
+      
       output: ${test_file_prefix}0.template.${main_function}.emb.result.filter.result.result
       ```
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	has been wonderful been wonderful .	1	ever since the new folks took over this place has been wonderful .	0.508009486086	ever since joes has changed it 's just has been wonderful .	0.0406288546875	4.85057830811
