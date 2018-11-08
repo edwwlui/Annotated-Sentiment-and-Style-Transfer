@@ -141,7 +141,10 @@ Start reading from run.sh
   my husband got a ruben sandwich , he loved it . my husband got a ruben sandwich , it was way too salty .        1
   i signed up for their email and got a coupon .  i signed up for their email and got a coupon .  1
   ```
-  
-
+  # Modifications
+  - theano.rc allow_downcast
+  - added "errors=replace"
+  experiments
+  - change string.atoi to string.atof
 
 
