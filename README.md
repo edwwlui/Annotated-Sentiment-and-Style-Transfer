@@ -99,17 +99,9 @@ Start reading from run.sh
     ```
   - shuffle
     - #fw: train.data.${main_function:\[label,orgin]}.shuffle
-    ```
-    visiting this salon and come out looking .	i highly recommend visiting this salon and come out looking fabulous .	i highly recommend fabulous	1
-    holy cow , this place was	holy cow , this place was good !	good time 	1
-    ross is located in an outdoor strip mall .	ross is located in an outdoor strip mall .	self	1
-    ```
+    
     - #fw: test.data.${main_function:\[label,orgin]}.shuffle
-    ```
-    !	wonderful meal !	wonderful meal	1
-    spoke to a person at their office !	spoke to a person at their office and was told sorry !	and was told sorry	1
-    to my friends or family .	i would not recommend this to my friends or family .	i would not recommend would not recommend this	1
-    ```
+    
     - append them and overwrite to the initial train.data.${main_function:\[label,orgin]}
    - create dict data file by putting in train.data.${main_function:\[label,orgin]}
      - #fw: zhi.dict.$main_function:\[label,orgin]
