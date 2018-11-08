@@ -10,6 +10,7 @@ Start reading from run.sh
 - A:\[b,c] means elements b,c in set A
   
 - fw: file write
+- emb: embedding
 
 # High-Level Summary
 - Command:
