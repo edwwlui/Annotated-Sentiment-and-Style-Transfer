@@ -145,7 +145,18 @@ Start reading from run.sh
       there is definitely room in that part of the venue .	there is definitely not enough room in that part of the venue .	not enough	1
       so basically tasted	so basically tasted watered down .	watered down .	1
       ```
-      
+    - filter lines which is the same as the previous line
+      ```
+      ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1
+      there is definitely room in that part of the venue .	there is definitely not enough room in that part of the venue .	not enough	1
+      so basically tasted	so basically tasted watered down .	watered down .	1
+      ```
+    - filter lines which are lines[-2]!='self' and the same as the previous line
+      ```
+      nothing really special & not worthy of the $ tag .	nothing really special & not worthy of the $ _num_ price tag .	_num_ price	1
+      second , the steak hoagie , it	second , the steak hoagie , it is atrocious .	is atrocious .	1
+      i add cheese to the hoagie .	i had to pay $ _num_ to add cheese to the hoagie .	had to pay to pay $ _num_ $ _num_ to	1
+      ```
     - train with input files of ${test_file_prefix}${i}.template.${main_function} and ${train_file_prefix}${i}.template.${main_function} for the mode(method) of generate_emb
     
       sentiment.test.${i:[0,1]}.template.${main_function:[label,orgin]}
