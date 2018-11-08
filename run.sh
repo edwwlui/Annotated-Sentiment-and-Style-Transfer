@@ -207,11 +207,11 @@ elif [ "$main_operation" = "test" ]; then
 			 python ${preprocess_tool_path}preprocess_test.py ${orgin_test_file_prefix}${i} ${train_file_prefix}${i} $main_function $main_dict_num $main_dict_thre ${test_file_prefix}${i}
 		         echo ">> filter_template_test.py"
 		         #python src/tool/filter_template_test.py sentiment.test.${i:[0,1]} $main_function:[label,orgin]
-			 #fw: sentiment.test.${i:[0,1]}.data.$main_function:[label,orgin]
+			 #fw: sentiment.test.${i:[0,1]}.template.$main_function:[label,orgin]
 			 python ${preprocess_tool_path}filter_template_test.py ${test_file_prefix}${i} ${main_function}
 		         echo ">> filter_template.py"
 		         #python src/tool/filter_template.py sentiment.train.${i:[0,1]} $main_function:[label,orgin]
-			 #fw sentiment.train.${i:[0,1]}.data.$main_function:[label,orgin]
+			 #fw sentiment.train.${i:[0,1]}.template.$main_function:[label,orgin]
 			 python ${preprocess_tool_path}filter_template.py ${train_file_prefix}${i} ${main_function}
 		done
 
