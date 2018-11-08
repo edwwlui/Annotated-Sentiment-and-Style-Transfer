@@ -146,12 +146,20 @@ Start reading from run.sh
       so basically tasted	so basically tasted watered down .	watered down .	1
       ```
     - filter lines which is the same as the previous line
+      #fw: sentiment.test.${i:[0,1]}.template.$main_function:[label,orgin]
       ```
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1
       there is definitely room in that part of the venue .	there is definitely not enough room in that part of the venue .	not enough	1
       so basically tasted	so basically tasted watered down .	watered down .	1
       ```
     - filter lines which are lines[-2]!='self' (self means style=='' ) and the same as the previous line
+      example of style, style_dict, line
+      ```
+      style:  is always friendly helpful
+      style_dict:  [1, 2, 4, 4, 6, 6]
+      line:  it 's hot , cooked perfectly , and delicious !
+      ```
+      #fw sentiment.train.${i:[0,1]}.template.$main_function:[label,orgin]
       ```
       nothing really special & not worthy of the $ tag .	nothing really special & not worthy of the $ _num_ price tag .	_num_ price	1
       second , the steak hoagie , it	second , the steak hoagie , it is atrocious .	is atrocious .	1
