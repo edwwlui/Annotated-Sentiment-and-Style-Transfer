@@ -213,6 +213,7 @@ Start reading from run.sh
       ```
   - test
     - train in the mode of "generate_b_v_t"
+    
       input: ${test_file_prefix}${i}.template.${main_function}.emb.result.filter
       
       output: ${test_file_prefix}${i}.template.${main_function}.emb.result.filter.result
