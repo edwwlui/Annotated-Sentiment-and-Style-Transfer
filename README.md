@@ -167,6 +167,7 @@ Start reading from run.sh
       i add cheese to the hoagie .	i had to pay $ _num_ to add cheese to the hoagie .	had to pay to pay $ _num_ $ _num_ to	1
       ```
     - train in the mode(method) of "generate_emb"
+      
       input: ${test_file_prefix}${i}.template.${main_function} 
       
       ```
@@ -175,7 +176,7 @@ Start reading from run.sh
       so basically tasted	so basically tasted watered down .	watered down .	1
       ```
       
-      ${train_file_prefix}${i}.template.${main_function}
+      input: ${train_file_prefix}${i}.template.${main_function}
       
       ```
       nothing really special & not worthy of the $ tag .	nothing really special & not worthy of the $ _num_ price tag .	_num_ price	1
@@ -187,7 +188,7 @@ Start reading from run.sh
       ```
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	-0.0112716 0.304784 0.097592 -0.216529 ...
       ```
-      ${train_file_prefix}${i}.template.${main_function}.emb
+      output: ${train_file_prefix}${i}.template.${main_function}.emb
       ```
       nothing really special & not worthy of the $ tag .	nothing really special & not worthy of the $ _num_ price tag .	_num_ price	1	-0.37709 0.0947371 0.255942 
       ```
