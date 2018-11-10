@@ -139,13 +139,14 @@ Start reading from run.sh
       #fw: sentiment.test.${i:[0,1]}.template1.result.result and cp it to sentiment.test.${i:[0,1]}.${main_function:[label,orgin]}.${main_data:[yelp,amazon,imagecaption]}
   - preprocess
     - add data of attribute marker if pass the threshold specified 
-      - #fw: sentiment.test.${i:\[0,1]}.data.${main_function:\[label,orgin]}
+    
+      #fw: sentiment.test.${i:\[0,1]}.data.${main_function:\[label,orgin]}
       ```
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1
       there is definitely room in that part of the venue .	there is definitely not enough room in that part of the venue .	not enough	1
       so basically tasted	so basically tasted watered down .	watered down .	1
       ```
-    - filter lines which is the same as the previous line
+    - filter lines which are the same as the previous line
     
       #fw: sentiment.test.${i:[0,1]}.template.$main_function:[label,orgin]
       ```
