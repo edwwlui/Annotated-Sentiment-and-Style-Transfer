@@ -201,9 +201,9 @@ Start reading from run.sh
       #fw: sentiment.test.${i:\[0,1]}.template.$main_function:\[label,orgin].emb.result
       |Template|Original|Attr|1|Score|Opp Original|Opp Attr|1|
       |---|---|---|---|---|---|---|---|
+      |ever since joes has changed hands it 's just|ever since joes has changed hands it 's just gotten worse and worse .|gotten worse worse and worse worse .|1|0.508009486086|ever since the new folks took over this place|ever since the new folks took over this place has been wonderful .|has been wonderful been wonderful .|1|
       
       ```
-      Template	Original	Attr	1	Score	Opp	Original	Opp	Attr	1
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.508009486086	ever since the new folks took over this place	ever since the new folks took over this place has been wonderful .	has been wonderful been wonderful .	1
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.455706522823	ever since then , this restaurant has been my .	ever since then , this restaurant has been my guilty pleasure .	guilty pleasure	1
       ever since joes has changed hands it 's just	ever since joes has changed hands it 's just gotten worse and worse .	gotten worse worse and worse worse .	1	0.430749302283	ever since i tried sonic back in _num_ i have there food .	ever since i tried sonic back in _num_ i have loved there food .	loved	1
